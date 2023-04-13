@@ -1,8 +1,33 @@
 import { Module } from '@nestjs/common';
-import { MailerService } from './mailer.service';
+import { MailService } from './mailer-provider';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { ConfigService } from '@nestjs/config';
+
+const setupMailProvider = ({ get }: ConfigService) => ({
+  transport: {
+    host: get('MAIL_HOST'),
+    port: get('MAIL_PORT'),
+    secure: false,
+    auth: {
+      user: get('MAIL_USER'),
+      pass: get('MAIL_PASSWORD'),
+    },
+  },
+  defaults: {
+    from: `no-reply <no-reply@site-soujunior.com>`,
+  },
+})
+
 
 @Module({
-  providers: [MailerService],
-  exports: [MailerService]
+  imports: [MailerModule.forRootAsync({
+    useFactory: setupMailProvider,
+    inject: [ConfigService]
+  })],
+  providers: [{
+    provide: 'MailerService',
+    useClass: MailService
+  }],
+  exports: [MailService]
 })
-export class MailerModule { }
+export class MailModule { }
