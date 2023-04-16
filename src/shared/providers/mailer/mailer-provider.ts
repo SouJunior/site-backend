@@ -1,13 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { SendMailDto } from './dto/send-mail-dto';
 import { Mail } from './protocols/mail';
-import { MailerService } from '@nestjs-modules/mailer';
+import { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
+
+export interface MailData {
+  context: {
+    [name: string]: string
+  }
+}
 
 @Injectable()
 export class MailService implements Mail {
   constructor(private readonly mailer: MailerService) { }
 
-  async send(sendMailDTO: SendMailDto): Promise<void> {
-    await this.mailer.sendMail(sendMailDTO)
+  async send({ context }: MailData): Promise<void> {
+    const mailObj: ISendMailOptions = {
+      to: 'lucasmbrute614@gmail.com',
+      template: 'new-sponsor',
+      context,
+      subject: 'Novo apoiador'
+    }
+
+    await this.mailer.sendMail(mailObj)
   }
 }
+
+//wouerner@soujunior.tech

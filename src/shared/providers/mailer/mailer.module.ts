@@ -1,33 +1,41 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { MailService } from './mailer-provider';
-import { MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule, MailerOptions } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
+import { join } from 'path';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
-const setupMailProvider = ({ get }: ConfigService) => ({
+const setupMailProvider = (config: ConfigService): MailerOptions => ({
   transport: {
-    host: get('MAIL_HOST'),
-    port: get('MAIL_PORT'),
+    host: config.get('MAIL_HOST'),
+    port: config.get('MAIL_PORT'),
     secure: false,
     auth: {
-      user: get('MAIL_USER'),
-      pass: get('MAIL_PASSWORD'),
+      user: config.get('MAIL_USER'),
+      pass: config.get('MAIL_PASSWORD'),
     },
   },
   defaults: {
     from: `no-reply <no-reply@site-soujunior.com>`,
   },
+  template: {
+    dir: join(__dirname, 'templates'),
+    adapter: new HandlebarsAdapter(),
+    options: {
+      strict: true
+    }
+  }
 })
 
-
+@Global()
 @Module({
-  imports: [MailerModule.forRootAsync({
-    useFactory: setupMailProvider,
-    inject: [ConfigService]
-  })],
-  providers: [{
-    provide: 'MailerService',
-    useClass: MailService
-  }],
+  imports: [
+    MailerModule.forRootAsync({
+      useFactory: setupMailProvider,
+      inject: [ConfigService]
+    })
+  ],
+  providers: [MailService],
   exports: [MailService]
 })
 export class MailModule { }
