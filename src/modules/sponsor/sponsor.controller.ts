@@ -1,16 +1,14 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, Res } from '@nestjs/common';
 import { SendMailToNewSponsorUseCase } from './use-cases/send-mail-to-new-donator';
-import { SendMailDto } from 'src/shared/providers/mailer/dto/send-mail-dto';
-import { Response } from 'express';
+import { SendMailDto } from '../../shared/providers/mailer/dto/send-mail-dto';
 
 @Controller('sponsor')
 export class SponsorController {
   constructor(private readonly sendMailToNewSponsorUseCase: SendMailToNewSponsorUseCase) { }
 
   @Post()
-  async send(@Body() sendMailData: SendMailDto, @Res() res: Response) {
-    await this.sendMailToNewSponsorUseCase.send(sendMailData);
-
-    return res.status(200).send();
+  @HttpCode(200)
+  async send(@Body() sendMailData: SendMailDto) {
+    return await this.sendMailToNewSponsorUseCase.send(sendMailData);
   }
 }
