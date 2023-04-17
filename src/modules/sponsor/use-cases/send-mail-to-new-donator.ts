@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { MailProvider } from "src/shared/providers/mailer/mailer-provider";
+import { MailProvider } from "../../../shared/providers/mailer/mailer-provider";
 
 interface SendMailToNewSponsorUseCaseProps {
   name: string;
