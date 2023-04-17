@@ -17,7 +17,10 @@ export class SendMailToNewSponsorUseCase {
     await this.mailProvider.send({
       context: {
         ...data
-      }
+      },
+      subject: 'Novo apoiador',
+      template: 'new-sponsor',
+      to: 'lucasmbrute614@gmail.com'
     })
   }
 }
