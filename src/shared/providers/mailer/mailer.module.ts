@@ -1,5 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import { MailService } from './mailer-provider';
+import { MailProvider } from './mailer-provider';
 import { MailerModule, MailerOptions } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
@@ -35,7 +35,7 @@ const setupMailProvider = (config: ConfigService): MailerOptions => ({
       inject: [ConfigService]
     })
   ],
-  providers: [MailService],
-  exports: [MailService]
+  providers: [MailProvider],
+  exports: [MailProvider]
 })
 export class MailModule { }

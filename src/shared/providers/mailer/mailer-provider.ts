@@ -12,7 +12,7 @@ export interface MailData {
 }
 
 @Injectable()
-export class MailService implements Mail {
+export class MailProvider implements Mail {
   constructor(private readonly mailer: MailerService) { }
 
   async send({ context, subject, template, to }: MailData): Promise<void> {

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { MailService } from "src/shared/providers/mailer/mailer-provider";
+import { MailProvider } from "src/shared/providers/mailer/mailer-provider";
 
 interface SendMailToNewSponsorUseCaseProps {
   name: string;
@@ -11,7 +11,7 @@ interface SendMailToNewSponsorUseCaseProps {
 
 @Injectable()
 export class SendMailToNewSponsorUseCase {
-  constructor(private readonly mailProvider: MailService) { }
+  constructor(private readonly mailProvider: MailProvider) { }
 
   async send(data: SendMailToNewSponsorUseCaseProps): Promise<void> {
     await this.mailProvider.send({
