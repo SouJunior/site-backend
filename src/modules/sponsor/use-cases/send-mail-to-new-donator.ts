@@ -20,7 +20,7 @@ export class SendMailToNewSponsorUseCase {
       },
       subject: 'Novo apoiador',
       template: 'new-sponsor',
-      to: 'lucasmbrute614@gmail.com'
+      to: 'wouerner@soujunior.tech'
     })
   }
 }

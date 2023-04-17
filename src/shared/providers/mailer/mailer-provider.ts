@@ -26,5 +26,3 @@ export class MailService implements Mail {
     await this.mailer.sendMail(mailObj)
   }
 }
-
-//wouerner@soujunior.tech
