@@ -1,5 +1,5 @@
 import { Test } from "@nestjs/testing"
-import { MailData, MailProvider } from "../mailer-provider"
+import { MailData, MailProvider } from "../../src/shared/providers/mailer/mailer-provider"
 import { MailerService } from "@nestjs-modules/mailer"
 
 class MailServiceMock {

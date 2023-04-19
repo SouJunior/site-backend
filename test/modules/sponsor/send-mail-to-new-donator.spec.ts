@@ -1,7 +1,7 @@
 import { Test } from "@nestjs/testing"
-import { MailData, MailProvider } from "../../../shared/providers/mailer/mailer-provider"
-import { Mail } from "../../../shared/providers/mailer/protocols/mail"
-import { SendMailToNewSponsorUseCase } from "../use-cases/send-mail-to-new-donator"
+import { MailData, MailProvider } from "../../../src/shared/providers/mailer/mailer-provider"
+import { Mail } from "../../../src/shared/providers/mailer/protocols/mail"
+import { SendMailToNewSponsorUseCase } from "../../../src/modules/sponsor/use-cases/send-mail-to-new-donator"
 
 const makeMailProvider = (): Mail => {
   class MailProviderStub implements Mail {

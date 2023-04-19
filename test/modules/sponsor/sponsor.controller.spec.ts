@@ -1,9 +1,9 @@
 import { Test } from "@nestjs/testing"
-import { SponsorController } from "../sponsor.controller"
-import { SendMailToNewSponsorUseCase } from "../use-cases/send-mail-to-new-donator"
+import { SponsorController } from "../../../src/modules/sponsor/sponsor.controller"
+import { SendMailToNewSponsorUseCase } from "../../../src/modules/sponsor/use-cases/send-mail-to-new-donator"
 import { SendMailDto } from "src/shared/providers/mailer/dto/send-mail-dto"
 
-jest.mock("../use-cases/send-mail-to-new-donator")
+jest.mock("../../../src/modules/sponsor/use-cases/send-mail-to-new-donator")
 
 const makeSendMailDto = (): SendMailDto => ({
   description: 'any-description',
