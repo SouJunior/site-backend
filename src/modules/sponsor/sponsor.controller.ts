@@ -11,12 +11,14 @@ export class SponsorController {
     summary: 'Send email to admin about new sponsor',
   })
   @ApiResponse({
-    status: 200
+    status: 200,
+    description: 'Success',
+    type: null
   })
   @ApiResponse({
     status: 400,
     description: 'Error',
-    type: 'string'
+    type: String
   })
   @Post()
   @HttpCode(200)
