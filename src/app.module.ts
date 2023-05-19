@@ -6,11 +6,11 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
     MailModule,
-    SponsorModule
+    SponsorModule,
   ],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

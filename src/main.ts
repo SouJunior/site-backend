@@ -10,12 +10,12 @@ async function bootstrap() {
     .setTitle('SouJunior website')
     .setDescription('The website SouJunior')
     .setVersion('1.0.0')
-    .build()
+    .build();
 
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, document)
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
-  app.useGlobalPipes(new ValidationPipe())
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(3333);
 }
 bootstrap();

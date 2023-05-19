@@ -1,11 +1,20 @@
-import { Body, Controller, HttpCode, Injectable, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Injectable,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { SendMailToNewSponsorUseCase } from './use-cases/send-mail-to-new-donator';
 import { SendMailDto } from '../../shared/providers/mailer/dto/send-mail-dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('sponsor')
 export class SponsorController {
-  constructor(private readonly sendMailToNewSponsorUseCase: SendMailToNewSponsorUseCase) { }
+  constructor(
+    private readonly sendMailToNewSponsorUseCase: SendMailToNewSponsorUseCase,
+  ) {}
 
   @ApiOperation({
     summary: 'Send email to admin about new sponsor',
@@ -13,12 +22,12 @@ export class SponsorController {
   @ApiResponse({
     status: 200,
     description: 'Success',
-    type: null
+    type: null,
   })
   @ApiResponse({
     status: 400,
     description: 'Error',
-    type: String
+    type: String,
   })
   @Post()
   @HttpCode(200)
