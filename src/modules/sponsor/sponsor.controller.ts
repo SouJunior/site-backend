@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  Injectable,
-  Post,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { SendMailToNewSponsorUseCase } from './use-cases/send-mail-to-new-donator';
 import { SendMailDto } from '../../shared/providers/mailer/dto/send-mail-dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
