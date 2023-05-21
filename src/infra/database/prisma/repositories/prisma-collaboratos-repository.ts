@@ -30,7 +30,11 @@ export class PrismaCollaboratorsRepository implements CollaboratorsRepository {
   }
 
   async findMany(): Promise<Collaborator[]> {
-    const collaborators = await this.prisma.collaborator.findMany();
+    const collaborators = await this.prisma.collaborator.findMany({
+      where: {
+        leftAt: null,
+      },
+    });
     if (!collaborators.length) return [];
 
     return collaborators.map(PrismaCollaboratorsMapper.toDomain);
@@ -58,6 +62,17 @@ export class PrismaCollaboratorsRepository implements CollaboratorsRepository {
     });
 
     if (!collaborator) return null;
+
+    return PrismaCollaboratorsMapper.toDomain(collaborator);
+  }
+
+  async save(data: Collaborator): Promise<Collaborator> {
+    const collaborator = await this.prisma.collaborator.update({
+      where: {
+        id: data.id,
+      },
+      data: PrismaCollaboratorsMapper.toPrisma(data),
+    });
 
     return PrismaCollaboratorsMapper.toDomain(collaborator);
   }

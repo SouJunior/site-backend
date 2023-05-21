@@ -5,6 +5,7 @@ import { RegisterCollaborator } from './use-cases/register-collaborator';
 import { GetCollaborators } from './use-cases/get-collaborators';
 import { EditCollaborator } from './use-cases/edit-collaborator';
 import { DatabaseModule } from 'src/infra/database/database.module';
+import { LeftCollaborator } from './use-cases/left-collaborator';
 
 @Module({
   imports: [DatabaseModule],
@@ -14,6 +15,7 @@ import { DatabaseModule } from 'src/infra/database/database.module';
     GetCollaborators,
     GetCollaborator,
     RegisterCollaborator,
+    LeftCollaborator,
   ],
 })
 export class CollaboratorsModule {}

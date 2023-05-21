@@ -14,4 +14,5 @@ export abstract class CollaboratorsRepository {
     id: string,
     fields: updateByIdFields,
   ): Promise<Collaborator>;
+  abstract save(collaborator: Collaborator): Promise<Collaborator>;
 }

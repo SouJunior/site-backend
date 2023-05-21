@@ -8,6 +8,7 @@ import { RegisterCollaborator } from '../use-cases/register-collaborator';
 import { Response } from 'express';
 import { CollaboratorViewModel } from 'src/shared/view-models/collaborators-view-model';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { LeftCollaborator } from '../use-cases/left-collaborator';
 
 @Controller('collaborators')
 export class CollaboratorsController {
@@ -16,6 +17,7 @@ export class CollaboratorsController {
     private readonly getCollaborators: GetCollaborators,
     private readonly getCollaborator: GetCollaborator,
     private readonly registerCollaborator: RegisterCollaborator,
+    private readonly leftCollaborator: LeftCollaborator,
   ) {}
 
   @ApiOperation({
@@ -136,6 +138,23 @@ export class CollaboratorsController {
 
       return res.status(200).json({
         collaborator: CollaboratorViewModel.toHTTP(collaborator),
+      });
+    } catch (error) {
+      return res.status(error.statusCode).json({
+        message: error.body,
+      });
+    }
+  }
+
+  @Patch('delete/:id')
+  async delete(@Param('id') id: string, @Res() res: Response) {
+    try {
+      const collaborator = await this.leftCollaborator.execute({
+        id,
+      });
+
+      return res.status(200).json({
+        collaborator,
       });
     } catch (error) {
       return res.status(error.statusCode).json({
