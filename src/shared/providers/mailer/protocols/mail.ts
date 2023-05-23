@@ -1,5 +1,5 @@
-import { MailData } from "../mailer-provider";
+import { MailData } from '../mailer-provider';
 
 export abstract class Mail {
-  abstract send(data: MailData): Promise<void>
+  abstract send(data: MailData): Promise<void>;
 }

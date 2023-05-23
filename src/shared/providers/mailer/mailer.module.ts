@@ -22,20 +22,20 @@ const setupMailProvider = (config: ConfigService): MailerOptions => ({
     dir: join(__dirname, 'templates'),
     adapter: new HandlebarsAdapter(),
     options: {
-      strict: true
-    }
-  }
-})
+      strict: true,
+    },
+  },
+});
 
 @Global()
 @Module({
   imports: [
     MailerModule.forRootAsync({
       useFactory: setupMailProvider,
-      inject: [ConfigService]
-    })
+      inject: [ConfigService],
+    }),
   ],
   providers: [MailProvider],
-  exports: [MailProvider]
+  exports: [MailProvider],
 })
-export class MailModule { }
+export class MailModule {}
