@@ -1,17 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsObject, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
 export class DataObjectDto {
   @ApiProperty({ example: 'Antonio' })
   @IsNotEmpty()
+  @IsString()
   name: string;
 
   @ApiProperty({ example: 'email@dominio.com' })
   @IsNotEmpty()
+  @IsEmail()
   email: string;
 
   @ApiProperty({ example: 'Duvida' })
   @IsNotEmpty()
+  @IsString()
   type: string;
 
   @ApiProperty({
@@ -19,6 +29,7 @@ export class DataObjectDto {
       'Como faço para poder entrar e ajudar outras pessoas na SouJunior?',
   })
   @IsNotEmpty()
+  @IsString()
   description: string;
 }
 
@@ -30,6 +41,7 @@ export class MailDTO {
 
   @ApiProperty({ type: DataObjectDto })
   @IsObject()
-  @IsNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => DataObjectDto)
   data: DataObjectDto;
 }
