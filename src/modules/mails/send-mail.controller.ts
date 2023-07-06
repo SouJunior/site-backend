@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import { SendMailService } from './send-mail.service';
-import { MailDTO } from 'src/shared/providers/mailer/dto/mail-dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { MailDTO } from 'src/shared/providers/mailer/dto/mail-dto';
+import { SendMailService } from './send-mail.service';
 
 @Controller('mail')
 export class SendMailController {
@@ -22,12 +22,7 @@ export class SendMailController {
   })
   @Post()
   @HttpCode(200)
-  async send(@Body() sendMailData: MailDTO) {
-    const { subject, template, data } = sendMailData;
-    return await this.sendMailService.send({
-      data,
-      subject,
-      template,
-    });
+  async send(@Body() { data, subject }: MailDTO) {
+    return await this.sendMailService.send(data, subject);
   }
 }
