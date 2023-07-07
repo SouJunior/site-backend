@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { MailDTO } from 'src/shared/providers/mailer/dto/mail-dto';
 import { SendMailService } from './send-mail.service';
 
@@ -39,6 +39,7 @@ export class SendMailController {
     description: 'Error',
     type: String,
   })
+  @ApiBody({})
   @Post('/collaborator')
   @HttpCode(200)
   async sendMail(@Body() data: any) {
