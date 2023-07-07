@@ -21,9 +21,7 @@ export class SendMailService {
     const emailToSend = NODE_ENV === 'development' ? EMAIL_TESTE : EMAIL_PROD;
 
     await this.mailProvider.send({
-      context: {
-        ...data,
-      },
+      context: { data },
       subject,
       template: './ombudsman',
       to: emailToSend,

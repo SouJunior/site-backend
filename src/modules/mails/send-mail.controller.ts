@@ -25,4 +25,23 @@ export class SendMailController {
   async send(@Body() { data, subject }: MailDTO) {
     return await this.sendMailService.send(data, subject);
   }
+
+  @ApiOperation({
+    summary: 'Send email about collaborator',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+    type: null,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Error',
+    type: String,
+  })
+  @Post('/collaborator')
+  @HttpCode(200)
+  async sendMail(@Body() data: any) {
+    return await this.sendMailService.send(data, 'apoiador');
+  }
 }
