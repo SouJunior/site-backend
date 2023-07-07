@@ -4,11 +4,11 @@ WORKDIR /user/app
 
 COPY package.json ./
 
-COPY prisma ./prisma/
+# COPY prisma ./prisma/
 
 RUN npm install
 
-RUN npx prisma generate
+# RUN npx prisma generate
 
 COPY . .
 
