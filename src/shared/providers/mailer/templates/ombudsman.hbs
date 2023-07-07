@@ -1,9 +1,9 @@
 <html>
   <body>
-    <h1>Novo registro - Ouvidoria</h1>
-    {{ name }}
-    {{ email }}
-    {{ type }}
-    {{ description }}
+    <h1>Novo registro</h1>
+
+    {{#each data}}
+    <p>{{@key}}: {{this}}</p>
+    {{/each}}
   </body>
 </html>

@@ -2,27 +2,27 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class SendMailDto {
-  @ApiProperty()
+  @ApiProperty({ example: 'Antonio' })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Toin' })
   @IsString()
   @IsNotEmpty()
   nickname: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: '1111111111' })
   @IsString()
   @IsNotEmpty()
   phone: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'email@dominio.com' })
   @IsString()
   @IsNotEmpty()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Gostaria de poder fazer parte desse projeto' })
   @IsString()
   @IsNotEmpty()
   description: string;

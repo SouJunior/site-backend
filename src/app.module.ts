@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { MailModule } from './shared/providers/mailer/mailer.module';
-import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { ConfigModule } from '@nestjs/config';
-import { CollaboratorsModule } from './modules/collaborators/collaborators.module';
 import { SendMailModule } from './modules/mails/send-mail.module';
+import { SponsorModule } from './modules/sponsor/sponsor.module';
+import { MailModule } from './shared/providers/mailer/mailer.module';
 
 @Module({
   imports: [
@@ -12,7 +11,6 @@ import { SendMailModule } from './modules/mails/send-mail.module';
     }),
     MailModule,
     SponsorModule,
-    CollaboratorsModule,
     SendMailModule,
   ],
   providers: [],
