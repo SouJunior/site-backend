@@ -20,23 +20,23 @@ export class SendMailService {
     const emailToSend = NODE_ENV === 'development' ? EMAIL_TESTE : EMAIL_PROD;
 
     await this.mailProvider.send({
-      context: { data },
+      context: data,
       subject,
       template: './ombudsman',
       to: emailToSend,
     });
 
-    if (data.subject === 'Quero ser Mentor') {
+    if (subject === 'Quero ser Mentor') {
       await this.mailProvider.send({
         context: {
-          CANDIDATE_FIRST_NAME: data?.name || 'Aquele que não deve ser nomeado',
-          JOB_NAME: data?.areas || '',
-          LINKEDIN_URL: data?.linkedin || '',
-          MESSAGE: data?.mensagem || '',
+          FULL_NAME: data?.data?.name || 'Aquele que não deve ser nomeado',
+          JOB_NAME: data?.data?.areas || '',
+          LINKEDIN_URL: data?.data?.linkedin || '',
+          MESSAGE: data?.data?.mensagem || '',
         },
         subject: 'Recebemos seu email',
         template: './response-user',
-        to: data.email,
+        to: data.data.email,
       });
     }
   }

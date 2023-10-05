@@ -43,6 +43,6 @@ export class SendMailController {
   @Post('/collaborator')
   @HttpCode(200)
   async sendMail(@Body() data: any) {
-    return await this.sendMailService.send(data, 'apoiador');
+    return await this.sendMailService.send(data, data.subject);
   }
 }
