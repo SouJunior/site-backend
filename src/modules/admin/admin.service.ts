@@ -19,7 +19,7 @@ export class AdminService {
     userId: string,
     newData: Partial<UserEntity>,
   ): Promise<UserEntity> {
-    const user = await this.userRepository.findOne(userId);
+    const user = await this.userRepository.findOne({ where: { id: userId } })
     if (!user) {
       throw new NotFoundException('Usuário não encontrado');
     }
@@ -28,7 +28,7 @@ export class AdminService {
   }
 
   async deleteUser(userId: string): Promise<void> {
-    const user = await this.userRepository.findOne(userId);
+    const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundException('Usuário não encontrado');
     }
@@ -40,7 +40,7 @@ export class AdminService {
   }
 
   async getUserById(id: string): Promise<UserEntity> {
-    const user = await this.userRepository.findOne(id);
+    const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new NotFoundException('User not found');
     }
