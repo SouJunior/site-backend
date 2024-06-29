@@ -1,11 +1,29 @@
-version: '3'
-
 services:
-  pg:
-    image: bitnami/postgresql
-    ports:
-      - 5432:5432
+  db:
+    image: mysql:latest
+    container_name: site-db
+    restart: always
     environment:
-      - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
-      - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
-      - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
+      MYSQL_USER: soujunior
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: soujunior
+      MYSQL_RANDOM_ROOT_PASSWORD: true
+    ports:
+      - "3306:3306"
+    volumes:
+        - ./mysql:/var/lib/mysql
+  app:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: site-backend
+    ports:
+        - "4444:4444"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: site-db
+      DB_PORT: 3306
+      DB_USER: soujunior
+      DB_PASSWORD: 123456
+      DB_NAME: soujunior
