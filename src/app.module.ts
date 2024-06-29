@@ -11,14 +11,15 @@ import { TypeOrmModule} from '@nestjs/typeorm';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'postgresql://soujunior:96S5zCjHUzbsJ6bKko9IcS8wq9ZpkJkT@dpg-cptlaud6l47c73cq0th0-a/soujunior',
-      port: 5432,
-      username: 'soujunior',
-      password: '96S5zCjHUzbsJ6bKko9IcS8wq9ZpkJkT',
-      database: 'soujunior',
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      //synchronize: true,
+      //insecureAuth: true,
     }),
     SponsorModule,
     SendMailModule,
@@ -27,6 +28,7 @@ import { TypeOrmModule} from '@nestjs/typeorm';
     TypeOrmModule,
     MailModule,
   ],
+
   providers: [],
 })
 export class AppModule {}

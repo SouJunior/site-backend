@@ -50,12 +50,6 @@ export class UserEntity {
   @Column({ nullable: true })
   last_sign_in_at: Date;
 
-  @Column({ type: 'jsonb', nullable: true })
-  raw_app_meta_data: Record<string, any>;
-
-  @Column({ type: 'jsonb', nullable: true })
-  raw_user_meta_data: Record<string, any>;
-
   @Column({ nullable: true })
   is_super_admin: boolean;
 
