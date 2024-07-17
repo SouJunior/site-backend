@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "t
 import { Area } from "./area.entity";
 import { Subarea } from "./subarea.entity";
 
-@Entity()
+@Entity("juniors")
 export class JuniorEntity {
     @PrimaryGeneratedColumn()
     id: number;

@@ -10,18 +10,26 @@ export class JuniorsController {
 
   @Post()
   async create(@Body() createJuniorDto: CrearteJuniorDto, @Res() res: Response): Promise<JuniorEntity> {
-    const juniorExist = await this.juniorsService.findJuniorByEmail(createJuniorDto.email);
+    
+
+    try {
+      const juniorExist = await this.juniorsService.findJuniorByEmail(createJuniorDto.email);
 
 
-    if (juniorExist) {
-      res.status(HttpStatus.CONFLICT).json({
-        statusCode: HttpStatus.CONFLICT,
-        message: 'Já existe um junior com esse email.'
-      })
-      return
-    }
+      if (juniorExist) {
+        res.status(HttpStatus.CONFLICT).json({
+          statusCode: HttpStatus.CONFLICT,
+          message: 'Já existe um junior com esse email.'
+        })
+        return
+      }
 
-    const junior = this.juniorsService.create(createJuniorDto);
-    res.status(HttpStatus.CREATED).json(junior)
+      const junior = this.juniorsService.create(createJuniorDto);
+
+      res.status(HttpStatus.CREATED).json(junior)
+
+    } catch (error) {
+       res.status(500).json({mesage: "Erro no servidor"})
+    } 
   }
 }

@@ -1,4 +1,5 @@
 import { IsBoolean, IsDate, IsEmail, IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { Type } from "class-transformer";
 
 export class CrearteJuniorDto {
     @IsString()
@@ -48,5 +49,6 @@ export class CrearteJuniorDto {
     terms_agreement: boolean;
 
     @IsDate()
+    @Type(()=> Date)
     start_date: Date;
 }
