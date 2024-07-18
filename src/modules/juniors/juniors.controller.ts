@@ -24,12 +24,16 @@ export class JuniorsController {
         return
       }
 
-      const junior = this.juniorsService.create(createJuniorDto);
+      const junior = await this.juniorsService.create(createJuniorDto);
+      
+      if(!junior){
+        res.status(HttpStatus.BAD_REQUEST).json({mensagem: 'junior nãon foi criado'})
+      }
 
       res.status(HttpStatus.CREATED).json(junior)
 
     } catch (error) {
-       res.status(500).json({mesage: "Erro no servidor"})
+       res.status(error.status).json({message: error.message})
     } 
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JuniorEntity } from 'src/database/entities/junior.entity';
 import { Repository } from 'typeorm';
@@ -21,16 +21,16 @@ export class JuniorsService {
     ) { }
 
     async create(createJuniorDto: CrearteJuniorDto): Promise<JuniorEntity> {
-        try {
-            const area = await this.areaRepository.findOneBy({ id: createJuniorDto.id_area });
+
+        const area = await this.areaRepository.findOneBy({ id: createJuniorDto.id_area });
         const subarea = await this.subareaRepository.findOneBy({ id: createJuniorDto.id_subarea });
 
         if (!area) {
-            throw new NotFoundException('Area not found');
+            throw new BadRequestException('area not found');
         }
 
         if (!subarea) {
-            throw new NotFoundException('Subarea not found')
+            throw new BadRequestException('Subarea not found')
         }
 
 
@@ -42,10 +42,7 @@ export class JuniorsService {
 
 
         return this.juniorRepository.save(junior)
-
-        } catch (error) {
-            throw new InternalServerErrorException("erro interno")
-        }
+        
     }
 
     async findJuniorByEmail(email: string): Promise<JuniorEntity> {
