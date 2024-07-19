@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JuniorEntity } from 'src/database/entities/junior.entity';
 import { Repository } from 'typeorm';
@@ -26,11 +26,11 @@ export class JuniorsService {
         const subarea = await this.subareaRepository.findOneBy({ id: createJuniorDto.id_subarea });
 
         if (!area) {
-            throw new BadRequestException('area not found');
+            throw new HttpException('area not found', HttpStatus.NOT_FOUND);
         }
 
         if (!subarea) {
-            throw new BadRequestException('Subarea not found')
+            throw new HttpException('area not found', HttpStatus.NOT_FOUND);
         }
 
 
