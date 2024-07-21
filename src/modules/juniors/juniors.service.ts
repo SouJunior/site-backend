@@ -37,7 +37,8 @@ export class JuniorsService {
         const junior = this.juniorRepository.create({
             ...createJuniorDto,
             id_area: area,
-            id_subarea: subarea
+            id_subarea: subarea,
+            start_date: new Date(createJuniorDto.start_date)
         });
 
 
