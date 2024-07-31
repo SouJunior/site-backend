@@ -10,4 +10,10 @@ export class AreaDto {
 
     @ApiProperty({ description: 'Subáreas da área', type: [SubareaDto] })
     subareas: SubareaDto[];
+
+    constructor(id: number, name: string, subareas: SubareaDto[]) {
+        this.id = id;
+        this.name = name;
+        this.subareas = subareas;
+    }
 }

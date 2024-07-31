@@ -13,13 +13,13 @@ export class AreaService {
     private readonly areasRepository: Repository<Area>,
   ) {}
 
-  
+
   async getAreasWithSubareas(): Promise<AreaDto[]> {
     const areas = await this.areasRepository.find({ relations: ['subareas'] });
     return areas.map(area => new AreaDto(
       area.id,
       area.name,
-      area.subareas.map(subarea => new SubareaDto(subarea.id, subarea.name)),
+      area.subareas.map(subarea => new SubareaDto(subarea.id, subarea.name, subarea.area.id)),
     ));
   }
 }
