@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { OneToMany, Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Subarea } from "./subarea.entity";
 
 @Entity("areas")
 export class Area {
@@ -7,4 +8,7 @@ export class Area {
 
     @Column()
     name: string;
+
+    @OneToMany(() => Subarea, subarea => subarea.area)
+    subareas: Subarea[];
 }

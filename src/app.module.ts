@@ -7,6 +7,8 @@ import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JuniorsModule } from './modules/juniors/juniors.module';
+import { AreaModule } from './modules/area/area.module';
+import { SubareaModule } from './modules/subarea/subarea.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { JuniorsModule } from './modules/juniors/juniors.module';
     TypeOrmModule,
     MailModule,
     JuniorsModule,
+    AreaModule,
+    SubareaModule
   ],
 
   providers: [],
