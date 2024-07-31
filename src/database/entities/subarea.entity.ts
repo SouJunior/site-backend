@@ -1,10 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Area } from "src/database/entities/area.entity";
 
-@Entity("subareas")
+@Entity("Subareas")
 export class Subarea {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 255 })
+    @Column()
     name: string;
+    
+    @ManyToOne(() => Area, area => area.subareas)
+    area: Area;
 }
