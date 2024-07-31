@@ -1,17 +1,13 @@
-import { SubareaDto } from "src/modules/subarea/dto/subareas.dto"; 
+import { SubareaDto } from "src/modules/subarea/dto/subareas.dto";
+import { ApiProperty } from '@nestjs/swagger';
 
 export class AreaDto {
+    @ApiProperty({ description: 'ID da área', example: 1 })
     id: number;
-    name: string;
-    subareas: SubareaDto[];
 
-    constructor(
-        id: number,
-        name: string,
-        subareas: SubareaDto[]
-    ) {
-        this.id = id;
-        this.name = name;
-        this.subareas = subareas;
-    }
+    @ApiProperty({ description: 'Nome da área', example: 'Tecnologia' })
+    name: string;
+
+    @ApiProperty({ description: 'Subáreas da área', type: [SubareaDto] })
+    subareas: SubareaDto[];
 }

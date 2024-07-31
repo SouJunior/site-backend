@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { JuniorsService } from './juniors.service';
-import { CrearteJuniorDto } from './dtos/create-junior-dto';
+import { CreateJuniorDto } from './dtos/create-junior-dto';
 import { JuniorEntity } from 'src/database/entities/junior.entity';
 import { Response } from 'express';
 
@@ -9,8 +9,8 @@ export class JuniorsController {
   constructor(private readonly juniorsService: JuniorsService) { }
 
   @Post()
-  async create(@Body() createJuniorDto: CrearteJuniorDto, @Res() res: Response): Promise<JuniorEntity> {
-    
+  async create(@Body() createJuniorDto: CreateJuniorDto, @Res() res: Response): Promise<JuniorEntity> {
+
 
     try {
       const juniorExist = await this.juniorsService.findJuniorByEmail(createJuniorDto.email);
@@ -25,7 +25,7 @@ export class JuniorsController {
       }
 
       const junior = await this.juniorsService.create(createJuniorDto);
-      
+
       if(!junior){
         res.status(HttpStatus.BAD_REQUEST).json({mensagem: 'junior nãon foi criado'})
       }
@@ -34,6 +34,6 @@ export class JuniorsController {
 
     } catch (error) {
        res.status(error.status).json({message: error.message})
-    } 
+    }
   }
 }

@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable, InternalServerErrorException, No
 import { InjectRepository } from '@nestjs/typeorm';
 import { JuniorEntity } from 'src/database/entities/junior.entity';
 import { Repository } from 'typeorm';
-import { CrearteJuniorDto } from './dtos/create-junior-dto';
+import { CreateJuniorDto } from './dtos/create-junior-dto';
 import { Area } from 'src/database/entities/area.entity';
 import { Subarea } from 'src/database/entities/subarea.entity';
 
@@ -20,7 +20,7 @@ export class JuniorsService {
         private readonly subareaRepository: Repository<Subarea>
     ) { }
 
-    async create(createJuniorDto: CrearteJuniorDto): Promise<JuniorEntity> {
+    async create(createJuniorDto: CreateJuniorDto): Promise<JuniorEntity> {
 
         const area = await this.areaRepository.findOneBy({ id: createJuniorDto.id_area });
         const subarea = await this.subareaRepository.findOneBy({ id: createJuniorDto.id_subarea });
@@ -43,7 +43,7 @@ export class JuniorsService {
 
 
         return this.juniorRepository.save(junior)
-        
+
     }
 
     async findJuniorByEmail(email: string): Promise<JuniorEntity> {
