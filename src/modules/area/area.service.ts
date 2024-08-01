@@ -19,7 +19,7 @@ export class AreaService {
     return areas.map(area => new AreaDto(
       area.id,
       area.name,
-      area.subareas.map(subarea => new SubareaDto(subarea.id, subarea.name, subarea.area.id)),
+      area.subareas.map(subarea => new SubareaDto(subarea.id, subarea.name, subarea.area?.id)),
     ));
   }
 }

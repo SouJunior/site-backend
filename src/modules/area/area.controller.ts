@@ -9,9 +9,8 @@ export class AreaController {
 @Get()
 async findAll(): Promise<AreaDto[]> {
   try {
-  const areas = await this.areaService.getAreasWithSubareas();
-  return areas;
-  } catch (error) { 
+    return await this.areaService.getAreasWithSubareas();
+  } catch (error) {
     throw new HttpException(
       'Erro ao obter areas.',
       HttpStatus.INTERNAL_SERVER_ERROR

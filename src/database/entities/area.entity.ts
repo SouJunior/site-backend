@@ -1,7 +1,7 @@
-import { OneToMany, Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { OneToMany, Entity, Column, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
 import { Subarea } from "./subarea.entity";
 
-@Entity("areas")
+@Entity("Areas")
 export class Area {
     @PrimaryGeneratedColumn()
     id: number;
