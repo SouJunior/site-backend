@@ -27,7 +27,7 @@ export class JuniorsController {
       const junior = await this.juniorsService.create(createJuniorDto);
 
       if(!junior){
-        res.status(HttpStatus.BAD_REQUEST).json({mensagem: 'junior nãon foi criado'})
+        res.status(HttpStatus.BAD_REQUEST).json({mensagem: 'junior não foi criado'})
       }
 
       res.status(HttpStatus.CREATED).json(junior)
