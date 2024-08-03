@@ -5,7 +5,8 @@ import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { MailModule } from './shared/providers/mailer/mailer.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { TypeOrmModule} from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { MentorModule } from './modules/mentor/mentor.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { TypeOrmModule} from '@nestjs/typeorm';
     AuthModule,
     TypeOrmModule,
     MailModule,
+    MentorModule,
   ],
 
   providers: [],
