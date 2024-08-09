@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDate,
@@ -78,5 +79,6 @@ export class createMentorDto {
   @ApiProperty({ description: 'Data de início', example: '2024-08-01' })
   @IsNotEmpty()
   @IsDate()
-  inicio: Date;
+  @Type(() => Date)
+  start_date: Date;
 }
