@@ -1,5 +1,6 @@
 import { cp } from 'fs';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Area } from './area.entity';
 
 @Entity()
 export class MentorEntity {
@@ -15,8 +16,9 @@ export class MentorEntity {
   @Column()
   linkedin: string;
 
-  @Column()
-  area: string;
+  @ManyToOne(() => Area)
+  @JoinColumn({ name: 'id_area' })
+  id_area: Area;
 
   @Column()
   subarea: number;
