@@ -1,6 +1,7 @@
 import { cp } from 'fs';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Area } from './area.entity';
+import { Subarea } from './subarea.entity';
 
 @Entity()
 export class MentorEntity {
@@ -20,8 +21,9 @@ export class MentorEntity {
   @JoinColumn({ name: 'id_area' })
   id_area: Area;
 
-  @Column()
-  subarea: number;
+  @ManyToOne(() => Subarea)
+  @JoinColumn({ name: 'id_subarea' })
+  id_subarea: Subarea;
 
   @Column()
   availability: string;
@@ -31,6 +33,9 @@ export class MentorEntity {
 
   @Column()
   start_option: string;
+
+  @Column()
+  experiece_time: string;
 
   @Column()
   job_experience: string;
