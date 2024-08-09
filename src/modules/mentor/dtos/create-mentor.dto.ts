@@ -66,11 +66,6 @@ export class createMentorDto {
   mentor_experience: string;
 
   @ApiProperty()
-  @IsOptional()
-  @IsString()
-  volunteer_motivation: string;
-
-  @ApiProperty()
   @IsNotEmpty()
   @IsBoolean()
   contact_agreement: boolean;
