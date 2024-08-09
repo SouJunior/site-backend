@@ -44,9 +44,6 @@ export class MentorEntity {
   mentor_experience: string;
 
   @Column()
-  volunteer_motivation: string;
-
-  @Column()
   contact_agreement: boolean;
 
   @Column()
