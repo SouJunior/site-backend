@@ -22,11 +22,6 @@ export class createMentorDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsEmail()
-  confirm_email: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
   @IsString()
   linkedin: string;
 
