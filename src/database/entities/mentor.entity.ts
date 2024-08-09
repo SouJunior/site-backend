@@ -8,13 +8,13 @@ export class MentorEntity {
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Column()
+  @Column({length: 255})
   name: string;
 
-  @Column()
+  @Column({length: 255})
   email: string;
 
-  @Column()
+  @Column({length: 255})
   linkedin: string;
 
   @ManyToOne(() => Area)
@@ -25,22 +25,22 @@ export class MentorEntity {
   @JoinColumn({ name: 'id_subarea' })
   id_subarea: Subarea;
 
-  @Column()
+  @Column({length: 255})
   availability: string;
 
   @Column()
   turn: string;
 
-  @Column()
+  @Column({length: 255})
   start_option: string;
 
   @Column()
   experiece_time: string;
 
-  @Column()
+  @Column('text')
   job_experience: string;
 
-  @Column()
+  @Column('text')
   mentor_experience: string;
 
   @Column()
