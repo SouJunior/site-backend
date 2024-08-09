@@ -13,9 +13,6 @@ export class MentorEntity {
   email: string;
 
   @Column()
-  confirm_email: string;
-
-  @Column()
   linkedin: string;
 
   @Column()
