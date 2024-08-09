@@ -3,10 +3,10 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 import { Area } from './area.entity';
 import { Subarea } from './subarea.entity';
 
-@Entity()
+@Entity("mentors")
 export class MentorEntity {
-  @PrimaryGeneratedColumn('uuid')
-  readonly id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({length: 255})
   name: string;
@@ -29,13 +29,13 @@ export class MentorEntity {
   availability: string;
 
   @Column()
-  turn: string;
+  turn: boolean;
 
   @Column({length: 255})
   start_option: string;
 
   @Column()
-  experiece_time: string;
+  experience_time: string;
 
   @Column('text')
   job_experience: string;

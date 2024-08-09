@@ -4,7 +4,7 @@ import { createMentorDto } from './dtos/create-mentor.dto';
 import { Response } from 'express';
 import { MentorEntity } from 'src/database/entities/mentor.entity';
 
-@Controller('mentor')
+@Controller('mentors')
 export class MentorController {
   constructor(private readonly mentorServices: MentorServices) {}
 
@@ -25,6 +25,7 @@ export class MentorController {
 
       if(!mentor){
         res.status(HttpStatus.BAD_REQUEST).json({message: 'Menot não foi criado'})
+        return
       }
 
       res.status(HttpStatus.CREATED).json(mentor)

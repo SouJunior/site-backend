@@ -4,6 +4,7 @@ import {
   IsBoolean,
   IsDate,
   IsEmail,
+  IsInt,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -28,13 +29,13 @@ export class createMentorDto {
 
   @ApiProperty({description: 'ID da área de interesse', example: '1'})
   @IsNotEmpty()
-  @IsString()
-  area: number;
+  @IsInt()
+  id_area: number;
 
   @ApiProperty({description: 'ID da subarea de interesse', example: '2'})
   @IsNotEmpty()
-  @IsString()
-  subarea: number;
+  @IsInt()
+  id_subarea: number;
 
   @ApiProperty({description: 'Diponibilidade do candidato a mentor', example: 'Full-time'})
   @IsNotEmpty()
@@ -43,8 +44,8 @@ export class createMentorDto {
 
   @ApiProperty({description: 'Indica se o candidato a mentor pode trabalhar em turnos', example: 'true'})
   @IsNotEmpty()
-  @IsString()
-  turn: string;
+  @IsBoolean()
+  turn: boolean;
 
   @ApiProperty({description: 'Opção de início do trabalho', example: 'Imediato'})
   @IsNotEmpty()

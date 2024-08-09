@@ -21,8 +21,8 @@ export class MentorServices {
 
   async newMentor(createMentorDto: createMentorDto): Promise<MentorEntity> {
 
-    const area = await this.areaRepository.findOneBy({id: createMentorDto.area})
-    const subarea = await this.subareaRepository.findOneBy({id: createMentorDto.subarea})
+    const area = await this.areaRepository.findOneBy({id: createMentorDto.id_area})
+    const subarea = await this.subareaRepository.findOneBy({id: createMentorDto.id_subarea})
 
     if(!area){
       throw new HttpException('area not found', HttpStatus.NOT_FOUND);
