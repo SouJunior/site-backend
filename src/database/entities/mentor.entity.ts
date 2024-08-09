@@ -49,6 +49,6 @@ export class MentorEntity {
   @Column()
   terms_agreement: boolean;
 
-  @Column()
-  inicio: Date;
+  @Column('date')
+  start_date: Date;
 }
