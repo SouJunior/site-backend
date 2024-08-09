@@ -28,7 +28,7 @@ export class createMentorDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  area: string;
+  area: number;
 
   @ApiProperty()
   @IsNotEmpty()
