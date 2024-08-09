@@ -53,6 +53,11 @@ export class createMentorDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
+  experience_time: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
   job_experience: string;
 
   @ApiProperty()
