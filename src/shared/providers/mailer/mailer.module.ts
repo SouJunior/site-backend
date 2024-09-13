@@ -17,7 +17,7 @@ const setupMailProvider = (config: ConfigService): MailerOptions => ({
     },
   },
   defaults: {
-    from: `no-reply <no-reply@site-soujunior.com>`,
+    from: `"No Reply" <${config.get('MAIL_FROM')}>`,
   },
   template: {
     dir: join(__dirname, 'templates'),

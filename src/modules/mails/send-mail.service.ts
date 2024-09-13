@@ -18,12 +18,11 @@ export class SendMailService {
     const { NODE_ENV, EMAIL_TESTE, EMAIL_PROD } = process.env;
 
     const emailToSend = NODE_ENV === 'development' ? EMAIL_TESTE : EMAIL_PROD;
-
     await this.mailProvider.send({
       context: data,
       subject,
       template: './ombudsman',
-      to: emailToSend,
+      to: 'gabriel.oliveira9400@gmail.com',
     });
 
     if (subject === 'Quero ser Mentor') {

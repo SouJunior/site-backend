@@ -20,7 +20,7 @@ export class MailProvider implements Mail {
       context,
       subject,
     };
-
+    console.log(mailObj);
     await this.mailer.sendMail(mailObj);
   }
 }
