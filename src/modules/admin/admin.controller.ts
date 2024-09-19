@@ -13,6 +13,7 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserEntity } from '../../database/entities/user.entity';
 import { AdminService } from './admin.service';
 
+
 @Controller('users')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}

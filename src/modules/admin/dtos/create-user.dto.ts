@@ -7,6 +7,7 @@ import {
   IsDate,
   IsNumber,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -32,6 +33,20 @@ export class CreateUserDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsDate()
+  @Type(() => Date)
   email_confirmed_at?: Date;
 
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date)
+  created_at: Date = new Date();
+
+  constructor(partial: Partial<CreateUserDto>) {
+    Object.assign(this, partial);
+    if (!this.created_at) {
+      this.created_at = new Date();
+    }
+  }
 }

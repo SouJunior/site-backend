@@ -10,9 +10,16 @@ import { JuniorsModule } from './modules/juniors/juniors.module';
 import { AreaModule } from './modules/area/area.module';
 import { SubareaModule } from './modules/subarea/subarea.module';
 import { MentorModule } from './modules/mentor/mentor.module';
+import { JwtModule } from '@nestjs/jwt';
+
 
 @Module({
   imports: [
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../../database/entities/user.entity';
+import { PasswordHelper } from '../../shared/helpers/criptografia';
 
 @Injectable()
 export class AdminService {
@@ -11,7 +12,8 @@ export class AdminService {
   ) {}
 
   async createUser(userData: Partial<UserEntity>): Promise<UserEntity> {
-    const newUser = this.userRepository.create(userData);
+    const encryptedPassword = await PasswordHelper.hashPassword(userData.encrypted_password);
+    const newUser = this.userRepository.create({ ...userData, encrypted_password: encryptedPassword });
     return this.userRepository.save(newUser);
   }
 
