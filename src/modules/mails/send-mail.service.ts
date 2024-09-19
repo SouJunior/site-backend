@@ -15,14 +15,11 @@ export class SendMailService {
   constructor(private readonly mailProvider: MailProvider) {}
 
   async send(data: any, subject: string): Promise<void> {
-    const { NODE_ENV, EMAIL_TESTE, EMAIL_PROD } = process.env;
-
-    const emailToSend = NODE_ENV === 'development' ? EMAIL_TESTE : EMAIL_PROD;
     await this.mailProvider.send({
       context: data,
       subject,
       template: './ombudsman',
-      to: 'gabriel.oliveira9400@gmail.com',
+      to: data.email,
     });
 
     if (subject === 'Quero ser Mentor') {

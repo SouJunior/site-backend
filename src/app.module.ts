@@ -22,7 +22,7 @@ import { MentorModule } from './modules/mentor/mentor.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       entities: ['dist/**/*.entity{.ts,.js}'],
-      //synchronize: true,
+      synchronize: true,
       //insecureAuth: true,
     }),
     SponsorModule,
