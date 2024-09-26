@@ -6,10 +6,6 @@ import { MailModule } from './shared/providers/mailer/mailer.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JuniorsModule } from './modules/juniors/juniors.module';
-import { AreaModule } from './modules/area/area.module';
-import { SubareaModule } from './modules/subarea/subarea.module';
-import { MentorModule } from './modules/mentor/mentor.module';
 import { JwtModule } from '@nestjs/jwt';
 
 
@@ -37,11 +33,7 @@ import { JwtModule } from '@nestjs/jwt';
     AdminModule,
     AuthModule,
     TypeOrmModule,
-    MailModule,
-    JuniorsModule,
-    AreaModule,
-    SubareaModule,
-    MentorModule
+    MailModule
   ],
 
   providers: [],

@@ -2,10 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsOptional,
   IsString,
-  IsEmail,
-  IsBoolean,
-  IsDate,
-  IsNumber,
+  IsEmail
 } from 'class-validator';
 
 export class UpdateUserDto {
