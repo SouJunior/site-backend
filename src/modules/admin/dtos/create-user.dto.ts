@@ -3,9 +3,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsBoolean,
-  IsDate,
-  IsNumber,
+  IsDate
 } from 'class-validator';
 import { Type } from 'class-transformer';
 

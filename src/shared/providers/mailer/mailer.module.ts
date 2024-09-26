@@ -4,7 +4,6 @@ import { MailerModule, MailerOptions } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
 import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { AppModule } from '../../../app.module';
 
 const setupMailProvider = (config: ConfigService): MailerOptions => ({
   transport: {
