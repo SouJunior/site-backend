@@ -14,6 +14,7 @@ import { SubareaModule } from './modules/subarea/subarea.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
+      name: 'default',
       type: 'mysql',
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT),
@@ -23,6 +24,16 @@ import { SubareaModule } from './modules/subarea/subarea.module';
       entities: ['dist/**/*.entity{.ts,.js}'],
       //synchronize: true,
       //insecureAuth: true,
+    }),
+    TypeOrmModule.forRoot({
+      name: 'mongoConnection', 
+      type: 'mongodb',
+      url: process.env.MDB_URL,
+      useNewUrlParser: true,
+      logging: true,
+      useUnifiedTopology: true, 
+      synchronize: true, 
+      entities: ['dist/**/*.mongo-entity{.ts,.js}'], 
     }),
     SponsorModule,
     SendMailModule,

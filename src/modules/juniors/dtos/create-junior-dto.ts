@@ -21,10 +21,6 @@ export class CreateJuniorDto {
   @IsInt()
   id_area: number;
 
-  @ApiProperty({ description: 'ID da subárea de interesse', example: 2 })
-  @IsInt()
-  id_subarea: number;
-
   @ApiProperty({ description: 'Disponibilidade do candidato', example: 'Full-time' })
   @IsString()
   @IsNotEmpty()
