@@ -15,7 +15,6 @@ export class JuniorsController {
     try {
       const juniorExist = await this.juniorsService.findJuniorByEmail(createJuniorDto.email);
 
-
       if (juniorExist) {
         res.status(HttpStatus.CONFLICT).json({
           statusCode: HttpStatus.CONFLICT,
@@ -33,7 +32,7 @@ export class JuniorsController {
       res.status(HttpStatus.CREATED).json(junior)
 
     } catch (error) {
-       res.status(error.status).json({message: error.message})
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: error.message})
     }
   }
 }

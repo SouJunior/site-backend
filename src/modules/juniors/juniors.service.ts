@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateJuniorDto } from './dtos/create-junior-dto';
 import { Area } from 'src/database/entities/area.entity';
 import { Subarea } from 'src/database/entities/subarea.entity';
+import { JuniorMDBEntity } from 'src/database/entities/juniormdb.mongo-entity';
 
 
 @Injectable()
@@ -17,40 +18,29 @@ export class JuniorsService {
         private readonly areaRepository: Repository<Area>,
 
         @InjectRepository(Subarea)
-        private readonly subareaRepository: Repository<Subarea>
+        private readonly subareaRepository: Repository<Subarea>,
+
+        @InjectRepository(JuniorMDBEntity, 'mongoConnection')
+        private readonly juniormdbRepository: Repository<JuniorMDBEntity>
     ) { }
 
-    async create(createJuniorDto: CreateJuniorDto): Promise<JuniorEntity> {
+    async create(createJuniorDto: CreateJuniorDto): Promise<JuniorMDBEntity> {
 
-        const area = await this.areaRepository.findOneBy({ id: createJuniorDto.id_area });
-        const subarea = await this.subareaRepository.findOneBy({ id: createJuniorDto.id_subarea });
-
-        if (!area) {
-            throw new HttpException('area not found', HttpStatus.NOT_FOUND);
-        }
-
-        if (!subarea) {
-            throw new HttpException('area not found', HttpStatus.NOT_FOUND);
-        }
-
-
-        const junior = this.juniorRepository.create({
+        const juniorMDB = this.juniormdbRepository.create({
             ...createJuniorDto,
-            id_area: area,
-            id_subarea: subarea,
             start_date: new Date(createJuniorDto.start_date)
         });
 
 
-        return this.juniorRepository.save(junior)
-
+        
+        return this.juniormdbRepository.save(juniorMDB);
     }
 
-    async findJuniorByEmail(email: string): Promise<JuniorEntity> {
-        const junior = await this.juniorRepository.findOneBy({ email })
+    async findJuniorByEmail(email: string): Promise<JuniorMDBEntity> {
+        const junior = await this.juniormdbRepository.findOne({where: { email }});
 
         if (!junior) {
-            return null
+            return null;
         }
 
         return junior;
