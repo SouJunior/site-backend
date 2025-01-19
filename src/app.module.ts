@@ -7,8 +7,11 @@ import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JuniorsModule } from './modules/juniors/juniors.module';
+import { MentorModule } from './modules/mentor/mentor.module';
 import { AreaModule } from './modules/area/area.module';
 import { SubareaModule } from './modules/subarea/subarea.module';
+import { HeadModule } from './modules/head/head.module';
+import { SupporterModule } from './modules/supporter/supporter.module';
 
 @Module({
   imports: [
@@ -42,6 +45,9 @@ import { SubareaModule } from './modules/subarea/subarea.module';
     TypeOrmModule,
     MailModule,
     JuniorsModule,
+    MentorModule,
+    HeadModule,
+    SupporterModule,
     AreaModule,
     SubareaModule
   ],
