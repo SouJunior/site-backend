@@ -25,7 +25,7 @@ export class MentorController{
     @Post()
     async create(@Body() createMentorDto: CreateMentorDTO) : Promise<MentorEntity>{
     
-        const mentorExists = await this.mentorService.mentorIsRegistered(createMentorDto.cpf, createMentorDto.email);
+        const mentorExists = await this.mentorService.mentorIsRegistered(createMentorDto.email);
         if (mentorExists){
             throw new BadRequestException('Já existe mentor com esse CPF ou Email');
         }

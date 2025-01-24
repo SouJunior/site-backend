@@ -8,10 +8,7 @@ export class MentorEntity{
     @Column({ length: 255 })
     name: string;
 
-    @Column({ length: 255 })
-    cpf: string;
-
-    @Column({ length: 255})
+    @Column({ length: 255, unique: true})
     email: string;
 
     @Column({length: 255})

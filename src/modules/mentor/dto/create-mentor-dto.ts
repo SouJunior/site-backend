@@ -1,4 +1,4 @@
-import { IsBoolean,  IsDate, IsEmail,  IsInt, IsNotEmpty,  IsOptional, IsString } from "class-validator";
+import { IsBoolean,  IsDate, IsEmail,  IsInt, IsNotEmpty,  IsOptional, IsString, IsUrl } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateMentorDTO{
@@ -8,11 +8,6 @@ export class CreateMentorDTO{
     @IsNotEmpty()
     name: string;
 
-    @ApiProperty({description: 'CPF do Mentor', example:'085.480.260-65'})
-    @IsString()
-    @IsNotEmpty()
-    cpf: string;
-
     @ApiProperty({description: 'Email do Mentor', example: 'jadsonvascon@shodan.com'})
     @IsEmail()
     @IsNotEmpty()
@@ -21,6 +16,10 @@ export class CreateMentorDTO{
     @ApiProperty({description: 'LinkedIn do Mentor', example: 'https://www.linkedin.com/in/jadsonVas/'})
     @IsString()
     @IsNotEmpty()
+    @IsUrl({  
+        protocols: ['http', 'https'],  
+        require_protocol: true,
+      })
     linkedin: string;
 
     @ApiProperty({description: 'Disponibilidade de atuação noturna', example: true})
