@@ -24,7 +24,7 @@ export class HeadController{
     @Post()
     async create(@Body() createHeadDto: CreateHeadDTO) : Promise<HeadEntity>{
 
-        const headExists = await this.headService.headIsRegistered(createHeadDto.cpf, createHeadDto.email);
+        const headExists = await this.headService.headIsRegistered(createHeadDto.email);
         if (headExists){
             throw new BadRequestException('Já existe head com esse email ou cpf');
         }

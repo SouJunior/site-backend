@@ -1,4 +1,4 @@
-import { Entity, ObjectIdColumn, ObjectId, Column } from 'typeorm';
+import { Entity, ObjectIdColumn, ObjectId, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('Head')
 export class HeadEntity{
@@ -7,9 +7,6 @@ export class HeadEntity{
 
     @Column({ length: 255 })
     name: string;
-
-    @Column({ length: 255 })
-    cpf: string;
 
     @Column({ length: 255})
     email: string;
@@ -59,4 +56,9 @@ export class HeadEntity{
     @Column()
     termsAgreement: boolean;
 
+    @CreateDateColumn()  
+    createdAt: Date;  
+  
+    @UpdateDateColumn()  
+    updatedAt: Date; 
 }

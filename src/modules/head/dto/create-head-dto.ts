@@ -1,4 +1,4 @@
-import { IsBoolean,  IsDate, IsEmail,  IsInt, IsNotEmpty,  IsOptional, IsString } from "class-validator";
+import { IsBoolean,  IsDate, IsEmail,  IsInt, IsNotEmpty,  IsOptional, IsString, Matches, MinDate } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateHeadDTO{
@@ -8,11 +8,6 @@ export class CreateHeadDTO{
     @IsNotEmpty()
     name: string;
 
-    @ApiProperty({description: 'CPF do Head', example:'085.480.260-65'})
-    @IsString()
-    @IsNotEmpty()
-    cpf: string;
-
     @ApiProperty({description: 'Email do Head', example: 'joestar@spdwgn.com'})
     @IsEmail()
     @IsNotEmpty()
@@ -21,6 +16,7 @@ export class CreateHeadDTO{
     @ApiProperty({description: 'LinkedIn do Head', example: 'https://www.linkedin.com/in/jjoestar/'})
     @IsString()
     @IsNotEmpty()
+    @Matches(/^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9\-]+\/?$/, {  message: 'URL do LinkedIn inválida' })
     linkedin: string;
 
     @ApiProperty({description: 'Disponibilidade de atuação noturna', example: true})
@@ -40,6 +36,7 @@ export class CreateHeadDTO{
     @ApiProperty({description:'Data de Início. Se não constar, é imediatamente.', example: '2025-01-12'})
     @IsDate()
     @IsOptional()
+    @MinDate(new Date(), { message: 'Data de início deve ser futura' })
     startDate?: Date;
 
     @ApiProperty({description:'Área de atuação codificada por um ID inteiro', example: 3})
@@ -72,16 +69,19 @@ export class CreateHeadDTO{
     otherExperiences?: string;
 
     @ApiProperty({description:'Concorda em ser contatado', example: true})
+    @IsBoolean()
     contactAgreement: boolean;
 
     @ApiProperty({description:'Concorda em ser voluntário', example: true})
-    volunteeringAgreement: boolean;
+    @IsBoolean()
+    volunteerAgreement: boolean;
 
     @ApiProperty({description:'Se colabora na estruturação estratégica da área de atuação', example: true})
     @IsBoolean()
     collaboration: boolean;
 
     @ApiProperty({description:'Concorda com os termos e condições', example: true})
+    @IsBoolean()
     termsAgreement: boolean;
 
 }
