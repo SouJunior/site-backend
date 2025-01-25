@@ -1,9 +1,9 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateSupporterDTO{
 
-    @ApiProperty({description: 'Pessoa Física ou Jurídica', example:'Sou Pessoa Jurídicaa'})
+    @ApiProperty({description: 'Pessoa Física ou Jurídica', example:'Sou Pessoa Jurídica'})
     @IsString()
     @IsNotEmpty()
     personType: string;
@@ -26,6 +26,7 @@ export class CreateSupporterDTO{
     @ApiProperty({description: 'Email do apoiador', example:'tmonteiro@yggdrasil.co'})
     @IsString()
     @IsNotEmpty()
+    @IsEmail({}, {message: 'Formato de email inválido'})
     email: string;
 
     @ApiProperty({description: 'Como o Apoiador gostaria de contribuir', example:'Tenho somas vultosas de dinheiro, gostaria de usar a SouJunior como um think tank'})

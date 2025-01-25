@@ -32,7 +32,7 @@ export class SupporterController{
 
         const supporter = await this.supporterService.create(createSupporterDto);
         if(!supporter){
-            throw new BadRequestException("Apoaidor não pôde ser criado");
+            throw new BadRequestException("Apoiador não pôde ser criado");
         }
 
         return supporter;

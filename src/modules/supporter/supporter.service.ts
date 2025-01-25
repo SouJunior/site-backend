@@ -14,7 +14,7 @@ export class SupporterService{
     async supporterIsRegistered(email: string) : Promise<Boolean>{
         const supporterEmail = await this.supporterEntityRepo.findOne({where: {email}});
 
-        return supporterEmail ? true : false;
+        return !!supporterEmail;
     }
 
     async create(createSupporterDTO: CreateSupporterDTO) : Promise<SupporterEntity>{
