@@ -3,11 +3,26 @@ import { JuniorsService } from './juniors.service';
 import { CreateJuniorDto } from './dtos/create-junior-dto';
 import { JuniorEntity } from 'src/database/entities/junior.entity';
 import { Response } from 'express';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('juniors')
 export class JuniorsController {
   constructor(private readonly juniorsService: JuniorsService) { }
 
+  
+  @ApiOperation({
+      summary: 'Registra o Junior no Banco de Dados',
+    })
+  @ApiResponse({
+      status: 200,
+      description: 'Sucesso',
+      type: CreateJuniorDto,
+    })
+  @ApiResponse({
+      status: 400,
+      description: 'Erro',
+      type: BadRequestException,
+    })
   @Post()
   async create(@Body() createJuniorDto: CreateJuniorDto, @Res() res: Response): Promise<JuniorEntity> {
 
@@ -32,7 +47,7 @@ export class JuniorsController {
       res.status(HttpStatus.CREATED).json(junior)
 
     } catch (error) {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: error.message})
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: "Erro interno"})
     }
   }
 }
