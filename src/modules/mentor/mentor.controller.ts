@@ -27,7 +27,7 @@ export class MentorController{
     
         const mentorExists = await this.mentorService.mentorIsRegistered(createMentorDto.email);
         if (mentorExists){
-            throw new BadRequestException('Já existe mentor com esse CPF ou Email');
+            throw new BadRequestException('Já existe mentor com esse Email');
         }
 
         const mentor = await this.mentorService.create(createMentorDto);

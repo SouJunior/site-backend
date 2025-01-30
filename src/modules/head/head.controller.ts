@@ -26,7 +26,7 @@ export class HeadController{
 
         const headExists = await this.headService.headIsRegistered(createHeadDto.email);
         if (headExists){
-            throw new BadRequestException('Já existe head com esse email ou cpf');
+            throw new BadRequestException('Já existe head com esse email');
         }
 
         const head = await this.headService.create(createHeadDto);
