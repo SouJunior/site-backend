@@ -1,8 +1,9 @@
-import { BadRequestException, Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { BadRequestException, Body, Controller, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger';
 import { MentorEntity } from 'src/database/entities/mentor.mongo-entity';
 import { MentorService } from './mentor.service';
 import { CreateMentorDTO } from './dto/create-mentor-dto';
+import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
 
 
 @Controller('mentor')
@@ -22,6 +23,11 @@ export class MentorController{
         description: 'Erro',
         type: BadRequestException,
       })
+    @ApiHeader({
+        name: 'x-api-key',
+        description: 'Chave secreta para autenticação'
+    })
+    @UseGuards(SecretKeyGuard)
     @Post()
     async create(@Body() createMentorDto: CreateMentorDTO) : Promise<MentorEntity>{
     
