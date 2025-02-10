@@ -1,9 +1,10 @@
-import { BadRequestException, Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import { BadRequestException, Body, Controller, HttpStatus, Post, Res , UseGuards} from '@nestjs/common';
 import { JuniorsService } from './juniors.service';
 import { CreateJuniorDto } from './dtos/create-junior-dto';
 import { JuniorEntity } from 'src/database/entities/junior.entity';
 import { Response } from 'express';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger';
+import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
 
 @Controller('juniors')
 export class JuniorsController {
@@ -23,6 +24,11 @@ export class JuniorsController {
       description: 'Erro',
       type: BadRequestException,
     })
+  @ApiHeader({
+      name: 'x-api-key',
+      description: 'Chave secreta para autenticação'
+  })
+  @UseGuards(SecretKeyGuard)
   @Post()
   async create(@Body() createJuniorDto: CreateJuniorDto, @Res() res: Response): Promise<JuniorEntity> {
 
