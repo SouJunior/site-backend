@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 
 @Injectable()
 export class RefererCheckMiddleware implements NestMiddleware {
-  private readonly allowedDomains = ['https://soujunior.tech'];
+  private readonly allowedDomains = process.env.ALLOWED_DOMAINS?.split(',') || ['https://soujunior.tech'];
 
   use(req: Request, res: Response, next: NextFunction) {
     const referer = req.headers.referer;
