@@ -19,7 +19,11 @@ export class CreateJuniorDto {
 
   @ApiProperty({ description: 'ID da área de interesse', example: 1 })
   @IsInt()
-  id_area: number;
+  area: number;
+
+  @ApiProperty({ description: 'ID da subárea de interesse', example: 1 })
+  @IsInt()
+  subarea: number;
 
   @ApiProperty({ description: 'Disponibilidade do candidato', example: 'Full-time' })
   @IsString()
@@ -30,36 +34,45 @@ export class CreateJuniorDto {
   @IsBoolean()
   turn: boolean;
 
+  @ApiProperty({ description: 'Indica se o candidato foi indicado por alguém da SJ', example: true })
+  @IsBoolean()
+  indication: boolean;
+
+  @ApiProperty({ description: 'Linkedin de quem o indicou', example: 'https://www.linkedin.com/in/t-monteiro/', required: false })
+  @IsOptional()
+  @IsString()
+  linkedinIndication?: string;
+
   @ApiProperty({ description: 'Opção de início do trabalho', example: 'Imediato' })
   @IsString()
   @IsNotEmpty()
-  start_option: string;
+  startOption: string;
 
   @ApiProperty({ description: 'Conhecimento em ferramentas', example: 'Excel, Power BI', required: false })
   @IsOptional()
   @IsString()
-  tools_knowledge?: string;
+  toolsKnowledge?: string;
 
   @ApiProperty({ description: 'Conhecimento em campo específico', example: 'Marketing Digital', required: false })
   @IsOptional()
   @IsString()
-  field_knowledge?: string;
+  fieldKnowledge?: string;
 
   @ApiProperty({ description: 'Motivação para trabalho voluntário', example: 'Quero ganhar experiência', required: false })
   @IsOptional()
   @IsString()
-  volunteer_motivation?: string;
+  volunteerMotivation?: string;
 
   @ApiProperty({ description: 'Concorda em ser contatado', example: true })
   @IsBoolean()
-  contact_agreement: boolean;
+  contactAgreement: boolean;
 
   @ApiProperty({ description: 'Concorda com os termos e condições', example: true })
   @IsBoolean()
-  terms_agreement: boolean;
+  termsAgreement: boolean;
 
   @ApiProperty({ description: 'Data de início', example: '2024-08-01' })
   @IsDate()
   @Type(() => Date)
-  start_date: Date;
+  startDate: Date;
 }

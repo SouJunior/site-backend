@@ -5,51 +5,52 @@ export class SupporterEntity {
     @ObjectIdColumn()
     id: ObjectId;
 
-    @Column({ length: 255})
-    personType: string;
-
-    @Column({ length: 255 })
-    name: string;
+    @Column({ length: 500, nullable: true })
+    expertiseAreas?: string;
 
     @Column({ length: 255, nullable: true })
     institution?: string;
 
-    @Column({ length: 255 })
-    phone: string;
+    @Column({ default: true })
+    contactAgreement: boolean;
+
+    @Column({ length: 500, nullable: true })
+    describeLinks?: string;
 
     @Column({ length: 255 })
     email: string;
 
-    @Column()
-    hasWhatsApp: boolean;
-
     @Column({ length: 255 })
-    supportType: string;
-
-    @Column({ length: 500, nullable: true })
-    linksForSupport?: string;
-
-    @Column({ length: 500, nullable: true })
-    expertiseAreas?: string;
+    name: string;
 
     @Column({ length: 500, nullable: true })
     opportunitiesDescription?: string;
 
     @Column({ length: 500, nullable: true })
-    otherSupportWays?: string;
+    otherSupport?: string;
+
+    @Column({ length: 255})
+    personType: string;
+
+    @Column({ length: 255 })
+    phone: string;
 
     @Column({ length: 500 })
     suggestion: string;
 
+    @Column({ length: 255 })
+    supportOptions: string;
+    
+    @Column({ default: true })
+    termsAgreement: boolean;
+
     @Column({ length: 500 })
-    motivation: string;
+    volunteerMotivation: string;
 
     @Column({ default: true })
-    agreesWithTerms: boolean;
+    volunteeringAgreement: boolean;
 
-    @Column({ default: true })
-    agreesWithNonProfit: boolean;
+    @Column()
+    hasWhatsApp: boolean;
 
-    @Column({ default: true })
-    agreesWithContact: boolean;
 }

@@ -28,7 +28,7 @@ export class JuniorsService {
 
         const juniorMDB = this.juniormdbRepository.create({
             ...createJuniorDto,
-            start_date: new Date(createJuniorDto.start_date)
+            startDate: new Date(createJuniorDto.startDate)
         });
 
 

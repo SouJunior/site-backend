@@ -1,4 +1,4 @@
-import { IsBoolean,  IsDate, IsEmail,  IsInt, IsNotEmpty,  IsOptional, IsString, Matches, MinDate } from "class-validator";
+import { IsBoolean,  IsDate, IsEmail,  IsInt, IsNotEmpty,  IsOptional, IsString, IsUrl, Matches, MinDate } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateHeadDTO{
@@ -16,8 +16,24 @@ export class CreateHeadDTO{
     @ApiProperty({description: 'LinkedIn do Head', example: 'https://www.linkedin.com/in/jjoestar/'})
     @IsString()
     @IsNotEmpty()
-    @Matches(/^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9\-]+\/?$/, {  message: 'URL do LinkedIn inválida' })
+    @IsUrl({  
+        protocols: ['http', 'https'],  
+        require_protocol: true,
+        })
     linkedin: string;
+
+    @ApiProperty({description:'Foi indicado por alguém da SJ', example: true})
+    @IsBoolean()
+    indication: boolean;
+
+    @ApiProperty({description: 'LinkedIn do Indicante', example: 'https://www.linkedin.com/in/tMonteiro/'})
+    @IsString()
+    @IsNotEmpty()
+    @IsUrl({  
+        protocols: ['http', 'https'],  
+        require_protocol: true,
+        })
+    linkedinIndication: string;
 
     @ApiProperty({description: 'Disponibilidade de atuação noturna', example: true})
     @IsBoolean()
