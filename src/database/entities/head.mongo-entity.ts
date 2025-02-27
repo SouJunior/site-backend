@@ -14,6 +14,12 @@ export class HeadEntity{
     @Column({length: 255})
     linkedin: string;
 
+    @Column({})
+    indication: boolean;
+
+    @Column({length: 255})
+    linkedinIndication: string;
+
     @Column()
     turn: boolean;
 

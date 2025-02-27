@@ -15,7 +15,16 @@ export class JuniorMDBEntity {
   linkedin: string;
 
   @Column()
-  id_area: number;
+  area: number;
+
+  @Column()
+  subarea: number;
+
+  @Column()
+  indication: boolean;
+
+  @Column()
+  linkedinIndication: string;
 
   @Column()
   availability: string;
@@ -24,23 +33,26 @@ export class JuniorMDBEntity {
   turn: boolean;
 
   @Column()
-  start_option: string;
+  otherExperiences: string;
 
   @Column()
-  tools_knowledge: string;
+  startOption: string;
 
   @Column()
-  field_knowledge: string;
+  toolsKnowledge: string;
 
   @Column()
-  volunteer_motivation: string;
+  fieldKnowledge: string;
 
   @Column()
-  contact_agreement: boolean;
+  volunteerMotivation: string;
 
   @Column()
-  terms_agreement: boolean;
+  contactAgreement: boolean;
 
   @Column()
-  start_date: Date;
+  termsAgreement: boolean;
+
+  @Column()
+  startDate: Date;
 }

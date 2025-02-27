@@ -35,12 +35,12 @@ export class CreateSupporterDTO {
     @ApiProperty({ description: 'Como você gostaria de apoiar o projeto SouJunior?', example: 'Financiador da iniciativa' })
     @IsString()
     @IsNotEmpty()
-    supportType: string;
+    supportOptions: string;
 
     @ApiProperty({ description: 'Links para canal/plataforma (caso seja Divulgador)', example: 'https://youtube.com/meucanal', required: false })
     @IsString()
     @IsOptional()
-    linksForSupport?: string;
+    describeLinks?: string;
 
     @ApiProperty({ description: 'Áreas de expertise (caso seja Especialista disposto a palestrar)', example: 'Desenvolvimento de Software, Gestão de Projetos', required: false })
     @IsString()
@@ -55,7 +55,7 @@ export class CreateSupporterDTO {
     @ApiProperty({ description: 'Outras formas de apoio (caso selecione "Outras formas de apoio")', example: 'Gostaria de oferecer mentoria para jovens desenvolvedores', required: false })
     @IsString()
     @IsOptional()
-    otherSupportWays?: string;
+    otherSupport?: string;
 
     @ApiProperty({ description: 'Sugestão ou ideia específica para contribuir', example: 'Criar um programa de mentoria para desenvolvedores iniciantes' })
     @IsString()
@@ -65,20 +65,20 @@ export class CreateSupporterDTO {
     @ApiProperty({ description: 'Motivação principal para se juntar à SouJunior', example: 'Acredito no potencial da SouJunior em transformar vidas através da tecnologia' })
     @IsString()
     @IsNotEmpty()
-    motivation: string;
+    volunteerMotivation: string;
 
     @ApiProperty({ description: 'Declaração de concordância com os Termos e Condições', example: true })
     @IsBoolean()
     @IsNotEmpty()
-    agreesWithTerms: boolean;
+    termsAgreement: boolean;
 
     @ApiProperty({ description: 'Declaração de concordância com o projeto sem fins lucrativos', example: true })
     @IsBoolean()
     @IsNotEmpty()
-    agreesWithNonProfit: boolean;
+    volunteeringAgreement: boolean;
 
     @ApiProperty({ description: 'Autorização para contato', example: true })
     @IsBoolean()
     @IsNotEmpty()
-    agreesWithContact: boolean;
+    contactAgreement: boolean;
 }
