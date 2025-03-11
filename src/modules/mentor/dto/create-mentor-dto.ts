@@ -1,5 +1,6 @@
 import { IsBoolean,  IsDate, IsEmail,  IsInt, IsNotEmpty,  IsOptional, IsString, IsUrl } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
+import { Type } from "class-transformer";
 
 export class CreateMentorDTO{
 
@@ -52,6 +53,7 @@ export class CreateMentorDTO{
     @ApiProperty({description:'Data de Início. Se não constar, é imediatamente.', example: '2025-01-12'})
     @IsDate()
     @IsOptional()
+    @Type(() => Date)
     startDate?: Date;
 
     @ApiProperty({description:'Área de atuação codificada por um ID inteiro', example: 3})

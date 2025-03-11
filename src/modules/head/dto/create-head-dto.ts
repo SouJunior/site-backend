@@ -1,4 +1,5 @@
 import { IsBoolean,  IsDate, IsEmail,  IsInt, IsNotEmpty,  IsOptional, IsString, IsUrl, Matches, MinDate } from "class-validator";
+import { Type } from "class-transformer";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateHeadDTO{
@@ -52,7 +53,7 @@ export class CreateHeadDTO{
     @ApiProperty({description:'Data de Início. Se não constar, é imediatamente.', example: '2025-01-12'})
     @IsDate()
     @IsOptional()
-    @MinDate(new Date(), { message: 'Data de início deve ser futura' })
+    @Type(() => Date)
     startDate?: Date;
 
     @ApiProperty({description:'Área de atuação codificada por um ID inteiro', example: 3})
