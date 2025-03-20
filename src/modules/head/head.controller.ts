@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller,  Post, UseGuards} from '@nestjs/common';
+import { BadRequestException, Body, Controller,  Get,  HttpStatus,  NotFoundException,  Param,  Post, UseGuards} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger';
 import { HeadEntity } from 'src/database/entities/head.mongo-entity';
 import { HeadService } from './head.service';
@@ -30,7 +30,7 @@ export class HeadController{
     @Post()
     async create(@Body() createHeadDto: CreateHeadDTO) : Promise<HeadEntity>{
 
-        const headExists = await this.headService.headIsRegistered(createHeadDto.email);
+        const headExists = await this.headService.findMentorByEmail(createHeadDto.email);
         if (headExists){
             throw new BadRequestException('Já existe head com esse email');
         }
@@ -38,6 +38,38 @@ export class HeadController{
         const head = await this.headService.create(createHeadDto);
         if (!head){
             throw new BadRequestException("Head não foi criado");
+        }
+
+        return head;
+    }
+
+    @ApiOperation({
+        summary: "Resgata informações do head no banco."
+    })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: "Sucesso",
+        type: CreateHeadDTO
+    })
+    @ApiResponse({
+        status: HttpStatus.NOT_FOUND,
+        description: "Mentor não encontrado.",
+        type: NotFoundException
+    })
+    @ApiResponse({
+        status: HttpStatus.BAD_REQUEST,
+        description: "Erro na entrada",
+        type: BadRequestException
+    })
+    @Get(":email")
+    async getByEmail(@Param("email") email : string){
+        if(!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){
+            throw new BadRequestException("Email inválido.");
+        }
+
+        const head = await this.headService.findMentorByEmail(email);
+        if(!head){
+            throw new NotFoundException("Head não encontrado.");
         }
 
         return head;

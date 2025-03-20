@@ -11,10 +11,10 @@ export class SupporterService{
         private readonly supporterEntityRepo: Repository<SupporterEntity>
     ){}
 
-    async supporterIsRegistered(email: string) : Promise<Boolean>{
+    async findSupporterByEmail(email: string) : Promise<SupporterEntity>{
         const supporterEmail = await this.supporterEntityRepo.findOne({where: {email}});
 
-        return !!supporterEmail;
+        return supporterEmail;
     }
 
     async create(createSupporterDTO: CreateSupporterDTO) : Promise<SupporterEntity>{

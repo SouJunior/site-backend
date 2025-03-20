@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, HttpStatus, Post, Res , UseGuards} from '@nestjs/common';
+import { BadRequestException, Body, Controller, HttpStatus, Post, Res , UseGuards, Get, Req, Param, NotFoundException} from '@nestjs/common';
 import { JuniorsService } from './juniors.service';
 import { CreateJuniorDto } from './dtos/create-junior-dto';
 import { JuniorEntity } from 'src/database/entities/junior.entity';
@@ -55,5 +55,37 @@ export class JuniorsController {
     } catch (error) {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({message: "Erro interno"})
     }
+  }
+
+  @ApiOperation({
+    summary: "Resgata registro do junior no Banco"
+  })
+  @ApiResponse({
+    status: 200,
+    description: "Sucesso",
+    type: CreateJuniorDto
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: "Junior não encontrado",
+    type: NotFoundException
+  })
+  @ApiResponse({
+    status: 400,
+    description: "Erro",
+    type: BadRequestException,
+  })
+  @Get(":email")
+  async getByEmail(@Param('email') email: string): Promise<CreateJuniorDto>{
+      if(!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){
+        throw new BadRequestException("Email inválido.");
+      }
+
+      const junior = await this.juniorsService.findJuniorByEmail(email);
+
+      if(!junior){
+        throw new NotFoundException("Junior não encontrado");
+      }
+      return junior;
   }
 }

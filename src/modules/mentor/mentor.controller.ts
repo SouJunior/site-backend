@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpStatus, NotFoundException, Param, Post, Res, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger';
 import { MentorEntity } from 'src/database/entities/mentor.mongo-entity';
 import { MentorService } from './mentor.service';
@@ -31,7 +31,7 @@ export class MentorController{
     @Post()
     async create(@Body() createMentorDto: CreateMentorDTO) : Promise<MentorEntity>{
     
-        const mentorExists = await this.mentorService.mentorIsRegistered(createMentorDto.email);
+        const mentorExists = await this.mentorService.findMentorByEmail(createMentorDto.email);
         if (mentorExists){
             throw new BadRequestException('Já existe mentor com esse Email');
         }
@@ -41,6 +41,40 @@ export class MentorController{
             throw new BadRequestException("Mentor não foi criado");
         }
         
+        return mentor;
+    }
+
+
+    @ApiOperation({
+        summary: "Resgata informações do mentor no banco."
+    })
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: "Sucesso",
+        type: CreateMentorDTO
+    })
+    @ApiResponse({
+        status: HttpStatus.NOT_FOUND,
+        description: "Mentor não encontrado",
+        type: NotFoundException
+    })
+    @ApiResponse({
+        status: HttpStatus.BAD_REQUEST,
+        description: "Chamada Incorreta",
+        type: BadRequestException
+    })
+    @Get(":email")
+    async getByEmail(@Param('email') email: string) : Promise<CreateMentorDTO>{
+        if(!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){
+            throw new BadRequestException("Email inválido.");
+        }
+
+        const mentor = await this.mentorService.findMentorByEmail(email);
+
+        if(!mentor){
+            throw new NotFoundException("Mentor não encontrado.");
+        }
+
         return mentor;
     }
 }
