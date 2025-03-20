@@ -11,10 +11,10 @@ export class HeadService{
         private readonly headEntityRepo: Repository<HeadEntity>
     ){}
 
-    async headIsRegistered(email: string): Promise<Boolean>{
+    async findMentorByEmail(email: string): Promise<HeadEntity>{
         const headEmail = await this.headEntityRepo.findOne({where: {email}});
 
-        return !!headEmail;
+        return headEmail;
     }
 
     async create(createHeadDto: CreateHeadDTO) : Promise<HeadEntity>{

@@ -11,10 +11,10 @@ export class MentorService{
         private readonly mentorEntityRepo: Repository<MentorEntity>
     ){}
 
-    async mentorIsRegistered(email: string): Promise<Boolean>{
+    async findMentorByEmail(email: string): Promise<MentorEntity>{
         const mentorEmail =  await this.mentorEntityRepo.findOne({where:{email}});
 
-        return  !!mentorEmail;
+        return  mentorEmail;
     }
 
     async create(createMentorDto: CreateMentorDTO) : Promise<MentorEntity>{
