@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {  Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SendMailModule } from './modules/mails/send-mail.module';
 import { SponsorModule } from './modules/sponsor/sponsor.module';
@@ -12,7 +12,6 @@ import { AreaModule } from './modules/area/area.module';
 import { SubareaModule } from './modules/subarea/subarea.module';
 import { HeadModule } from './modules/head/head.module';
 import { SupporterModule } from './modules/supporter/supporter.module';
-import { RefererCheckMiddleware } from './shared/middleware/referer-check.middleware';
 
 @Module({
   imports: [
