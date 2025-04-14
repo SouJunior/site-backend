@@ -55,8 +55,5 @@ import { RefererCheckMiddleware } from './shared/middleware/referer-check.middle
 
   providers: [],
 })
-export class AppModule implements NestModule {
-    configure(consumer: MiddlewareConsumer) {
-      consumer.apply(RefererCheckMiddleware).forRoutes('*');
-    }
+export class AppModule {
  }
