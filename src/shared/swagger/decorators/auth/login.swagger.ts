@@ -1,6 +1,6 @@
 import { applyDecorators, HttpStatus } from "@nestjs/common";
 import { ApiOperation, ApiResponse } from "@nestjs/swagger";
-import { UserLoginResponseDto } from "src/modules/auth/dtos/user-longin-response.dto";
+import { UserLoginResponseDto } from "src/modules/auth/dtos/user-login-response.dto";
 import { ErrorMessageSwagger } from "../../error-message.swagger";
 
 
