@@ -10,8 +10,9 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
-import { UserEntity } from '../../database/entities/user.entity';
+import { UserEntity } from 'src/database/entities/user.mongo-entity';
 import { AdminService } from './admin.service';
+import { ObjectId } from 'typeorm';
 
 @Controller('users')
 export class AdminController {
@@ -24,14 +25,14 @@ export class AdminController {
 
   @Patch(':id')
   async editUser(
-    @Param('id') id: string,
+    @Param('id') id: ObjectId,
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.adminService.editUser(id, updateUserDto);
   }
 
   @Delete(':id')
-  async deleteUser(@Param('id') id: string) {
+  async deleteUser(@Param('id') id: ObjectId) {
     return this.adminService.deleteUser(id);
   }
 
@@ -41,7 +42,7 @@ export class AdminController {
   }
 
   @Get(':id')
-  async getUserById(@Param('id') id: string): Promise<UserEntity> {
+  async getUserById(@Param('id') id: ObjectId): Promise<UserEntity> {
     const user = await this.adminService.getUserById(id);
     if (!user) {
       throw new NotFoundException('User not found');

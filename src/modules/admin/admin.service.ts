@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UserEntity } from '../../database/entities/user.entity';
+import { Repository, ObjectId } from 'typeorm';
+import { UserEntity } from 'src/database/entities/user.mongo-entity';
 
 @Injectable()
 export class AdminService {
   constructor(
-    @InjectRepository(UserEntity)
+    @InjectRepository(UserEntity, 'mongoConnection')
     private readonly userRepository: Repository<UserEntity>,
   ) {}
 
@@ -16,7 +16,7 @@ export class AdminService {
   }
 
   async editUser(
-    userId: string,
+    userId: ObjectId,
     newData: Partial<UserEntity>,
   ): Promise<UserEntity> {
     const user = await this.userRepository.findOne({ where: { id: userId } })
@@ -27,7 +27,7 @@ export class AdminService {
     return this.userRepository.save(updatedUser);
   }
 
-  async deleteUser(userId: string): Promise<void> {
+  async deleteUser(userId: ObjectId): Promise<void> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundException('Usuário não encontrado');
@@ -39,7 +39,7 @@ export class AdminService {
     return this.userRepository.find();
   }
 
-  async getUserById(id: string): Promise<UserEntity> {
+  async getUserById(id: ObjectId): Promise<UserEntity> {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new NotFoundException('User not found');
