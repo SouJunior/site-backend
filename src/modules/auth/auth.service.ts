@@ -11,7 +11,7 @@ export class AuthService {
 
   async signIn(email: string, password: string) {
     const user = await this.adminService.getUserByEmail(email);
-    if (user && user.encrypted_password === password) {
+    if (user && user.password === password) {
       const payload = { email: user.email };
       const accessToken = this.jwtService.sign(payload);
       return { accessToken };

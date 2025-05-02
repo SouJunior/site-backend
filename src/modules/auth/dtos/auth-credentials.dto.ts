@@ -18,10 +18,10 @@ export class AuthCredentialsDto {
   @IsNotEmpty()
   @IsString()
   @MinLength(8)
-  @MaxLength(32)
+  @MaxLength(60)
   @Matches(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message:
       'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número ou caractere especial, e ter entre 8 e 32 caracteres de comprimento.',
   })
-  encrypted_password: string;
+  password: string;
 }
