@@ -67,11 +67,6 @@ export class CreateSupporterDTO {
     @IsNotEmpty()
     volunteerMotivation: string;
 
-    @ApiProperty({ description: 'Declaração de concordância com os Termos e Condições', example: true })
-    @IsBoolean()
-    @IsNotEmpty()
-    termsAgreement: boolean;
-
     @ApiProperty({ description: 'Declaração de concordância com o projeto sem fins lucrativos', example: true })
     @IsBoolean()
     @IsNotEmpty()

@@ -17,10 +17,6 @@ export class CreateHeadDTO{
     @ApiProperty({description: 'LinkedIn do Head', example: 'https://www.linkedin.com/in/jjoestar/'})
     @IsString()
     @IsNotEmpty()
-    @IsUrl({  
-        protocols: ['http', 'https'],  
-        require_protocol: true,
-        })
     linkedin: string;
 
     @ApiProperty({description:'Foi indicado por alguém da SJ', example: true})
@@ -29,11 +25,6 @@ export class CreateHeadDTO{
 
     @ApiProperty({description: 'LinkedIn do Indicante', example: 'https://www.linkedin.com/in/tMonteiro/'})
     @IsString()
-    @IsNotEmpty()
-    @IsUrl({  
-        protocols: ['http', 'https'],  
-        require_protocol: true,
-        })
     linkedinIndication: string;
 
     @ApiProperty({description: 'Disponibilidade de atuação noturna', example: true})
