@@ -17,10 +17,6 @@ export class CreateMentorDTO{
     @ApiProperty({description: 'LinkedIn do Mentor', example: 'https://www.linkedin.com/in/jadsonVas/'})
     @IsString()
     @IsNotEmpty()
-    @IsUrl({  
-        protocols: ['http', 'https'],  
-        require_protocol: true,
-      })
     linkedin: string;
 
     @ApiProperty({description:'Foi indicado por alguém da SJ', example: true})
@@ -30,10 +26,6 @@ export class CreateMentorDTO{
     @ApiProperty({description: 'LinkedIn do Indicante', example: 'https://www.linkedin.com/in/tMonteiro/'})
     @IsString()
     @IsOptional()
-    @IsUrl({  
-        protocols: ['http', 'https'],  
-        require_protocol: true,
-      })
     linkedinIndication?: string;
 
     @ApiProperty({description: 'Disponibilidade de atuação noturna', example: true})
