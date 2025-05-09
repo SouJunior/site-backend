@@ -9,7 +9,7 @@ import { JuniorMDBEntity } from 'src/database/entities/juniormdb.mongo-entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([JuniorEntity, Area, Subarea]),
+   // TypeOrmModule.forFeature([JuniorEntity, Area, Subarea]),
     TypeOrmModule.forFeature([JuniorMDBEntity], 'mongoConnection')
   ],
   controllers: [JuniorsController],

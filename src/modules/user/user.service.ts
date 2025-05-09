@@ -4,7 +4,7 @@ import { Repository, ObjectId } from 'typeorm';
 import { UserEntity } from 'src/database/entities/user.mongo-entity';
 
 @Injectable()
-export class AdminService {
+export class UserService {
   constructor(
     @InjectRepository(UserEntity, 'mongoConnection')
     private readonly userRepository: Repository<UserEntity>,

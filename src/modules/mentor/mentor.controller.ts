@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Get, HttpStatus, NotFoundException, Param, Post, Res, UseGuards } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiHeader, ApiTags } from '@nestjs/swagger';
 import { MentorEntity } from 'src/database/entities/mentor.mongo-entity';
 import { MentorService } from './mentor.service';
 import { CreateMentorDTO } from './dto/create-mentor-dto';
@@ -7,6 +7,7 @@ import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
 
 
 @Controller('mentor')
+@ApiTags('Forms')
 export class MentorController{
     constructor(private readonly mentorService: MentorService){}
 

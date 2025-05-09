@@ -1,11 +1,12 @@
 import { BadRequestException, Body, Controller,  Get,  HttpStatus,  NotFoundException,  Param,  Post, UseGuards} from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiHeader, ApiTags } from '@nestjs/swagger';
 import { HeadEntity } from 'src/database/entities/head.mongo-entity';
 import { HeadService } from './head.service';
 import { CreateHeadDTO } from './dto/create-head-dto';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
 
 @Controller('head')
+@ApiTags('Forms')
 export class HeadController{
     constructor(private readonly headService: HeadService){}
 

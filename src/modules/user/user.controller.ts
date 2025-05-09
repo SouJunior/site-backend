@@ -11,12 +11,14 @@ import {
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserEntity } from 'src/database/entities/user.mongo-entity';
-import { AdminService } from './admin.service';
+import { UserService } from './user.service';
 import { ObjectId } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('users')
-export class AdminController {
-  constructor(private readonly adminService: AdminService) {}
+@ApiTags("Users")
+export class UserController {
+  constructor(private readonly adminService: UserService) {}
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {

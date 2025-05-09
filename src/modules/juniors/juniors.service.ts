@@ -11,14 +11,14 @@ import { JuniorMDBEntity } from 'src/database/entities/juniormdb.mongo-entity';
 @Injectable()
 export class JuniorsService {
     constructor(
-        @InjectRepository(JuniorEntity)
+       /* @InjectRepository(JuniorEntity)
         private readonly juniorRepository: Repository<JuniorEntity>,
 
         @InjectRepository(Area)
         private readonly areaRepository: Repository<Area>,
 
         @InjectRepository(Subarea)
-        private readonly subareaRepository: Repository<Subarea>,
+        private readonly subareaRepository: Repository<Subarea>,*/
 
         @InjectRepository(JuniorMDBEntity, 'mongoConnection')
         private readonly juniormdbRepository: Repository<JuniorMDBEntity>

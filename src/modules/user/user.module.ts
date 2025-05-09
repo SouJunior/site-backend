@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from 'src/database/entities/user.mongo-entity';
-import { AdminService } from './admin.service';
-import { AdminController } from './admin.controller';
+import { UserService } from './user.service';
+import { UserController } from './user.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserEntity],'mongoConnection')],
-  controllers: [AdminController],
-  providers: [AdminService],
+  controllers: [UserController],
+  providers: [UserService],
 })
-export class AdminModule {}
+export class UserModule {}

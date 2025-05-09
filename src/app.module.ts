@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { SendMailModule } from './modules/mails/send-mail.module';
 import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { MailModule } from './shared/providers/mailer/mailer.module';
-import { AdminModule } from './modules/admin/admin.module';
+import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JuniorsModule } from './modules/juniors/juniors.module';
@@ -16,18 +16,18 @@ import { SupporterModule } from './modules/supporter/supporter.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
+    /*TypeOrmModule.forRoot({
       name: 'default',
       type: 'mysql',
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT),
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      //synchronize: true,
+      database: process.env.DB_NAME,*/
+      //entities: ['dist/**/*.entity{.ts,.js}'],
+     /* //synchronize: true,
       //insecureAuth: true,
-    }),
+    }),*/
     TypeOrmModule.forRoot({
       name: 'mongoConnection', 
       type: 'mongodb',
@@ -38,9 +38,9 @@ import { SupporterModule } from './modules/supporter/supporter.module';
       synchronize: true, 
       entities: ['dist/**/*.mongo-entity{.ts,.js}'], 
     }),
-    SponsorModule,
-    SendMailModule,
-    AdminModule,
+    //SponsorModule,
+    //SendMailModule,
+    UserModule,
     AuthModule,
     TypeOrmModule,
     MailModule,
@@ -48,8 +48,8 @@ import { SupporterModule } from './modules/supporter/supporter.module';
     MentorModule,
     HeadModule,
     SupporterModule,
-    AreaModule,
-    SubareaModule
+    //AreaModule,
+    //SubareaModule
   ],
 
   providers: [],

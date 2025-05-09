@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Get, HttpStatus, NotFoundException, Param, Post, UseGuards} from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiHeader, ApiTags } from '@nestjs/swagger';
 import { SupporterEntity } from 'src/database/entities/supporter.mongo-entity';
 import { SupporterService } from './supporter.service';
 import { CreateSupporterDTO } from './dto/create-supporter-dto';
@@ -7,6 +7,7 @@ import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
 
 
 @Controller('supporter')
+@ApiTags('Forms')
 export class SupporterController{
     constructor(private readonly supporterService: SupporterService){}
 
