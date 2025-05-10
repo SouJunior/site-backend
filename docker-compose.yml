@@ -1,29 +1,72 @@
 services:
-  db:
-    image: mysql:latest
-    container_name: site-db
+  mongo:
+    image: mongo:latest
+    container_name: mongo-db
     restart: always
-    environment:
-      MYSQL_USER: soujunior
-      MYSQL_PASSWORD: 123456
-      MYSQL_DATABASE: soujunior
-      MYSQL_RANDOM_ROOT_PASSWORD: true
     ports:
-      - "3306:3306"
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
-        - ./mysql:/var/lib/mysql
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - '8081:8081'
+    depends_on:
+      - mongo
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
+      - ME_CONFIG_MONGODB_URL=${ME_CONFIG_MONGODB_URL}
+    networks:
+      - app-network
+
+  # docker-compose up app
   app:
     build:
-        context: .
-        dockerfile: Dockerfile
-    container_name: site-backend
+      context: .
+      dockerfile: Dockerfile
+    container_name: site-backend-build
     ports:
-        - "4444:4444"
-    depends_on:
-      - db
+      - '4000:4000'
     environment:
-      DB_HOST: site-db
-      DB_PORT: 3306
-      DB_USER: soujunior
-      DB_PASSWORD: 123456
-      DB_NAME: soujunior
+      - NODE_ENV=${NODE_ENV}
+      - SERCRET_KEY=${SECRET_KEY}
+      - MDB_URL=${MDB_URL}
+
+  # docker-compose up app-dev
+  app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: site-backend-dev
+    restart: always
+    ports:
+      - '4000:4000'
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    command: npm run dev
+    depends_on:
+      - mongo
+      - mongo-express
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - SERCRET_KEY=${SECRET_KEY}
+      - MDB_URL_DEV=${MDB_URL_DEV}
+    networks:
+      - app-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  app-network:
+    driver: bridge

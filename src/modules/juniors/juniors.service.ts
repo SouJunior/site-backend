@@ -1,25 +1,13 @@
 import { HttpException, HttpStatus, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { JuniorEntity } from 'src/database/entities/junior.entity';
 import { Repository } from 'typeorm';
 import { CreateJuniorDto } from './dtos/create-junior-dto';
-import { Area } from 'src/database/entities/area.entity';
-import { Subarea } from 'src/database/entities/subarea.entity';
 import { JuniorMDBEntity } from 'src/database/entities/juniormdb.mongo-entity';
 
 
 @Injectable()
 export class JuniorsService {
     constructor(
-        @InjectRepository(JuniorEntity)
-        private readonly juniorRepository: Repository<JuniorEntity>,
-
-        @InjectRepository(Area)
-        private readonly areaRepository: Repository<Area>,
-
-        @InjectRepository(Subarea)
-        private readonly subareaRepository: Repository<Subarea>,
-
         @InjectRepository(JuniorMDBEntity, 'mongoConnection')
         private readonly juniormdbRepository: Repository<JuniorMDBEntity>
     ) { }
@@ -32,7 +20,7 @@ export class JuniorsService {
         });
 
 
-        
+
         return this.juniormdbRepository.save(juniorMDB);
     }
 
