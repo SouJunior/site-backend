@@ -1,0 +1,19 @@
+FROM node:20-alpine
+
+LABEL maintainer="SouJunior Backend Team"
+
+WORKDIR /usr/app
+
+COPY package.json package-lock.json ./
+
+RUN npm install --ignore-scripts
+
+RUN npm install -g @nestjs/cli --ignore-scripts
+
+COPY src/ ./src/
+
+COPY nest-cli.json tsconfig.json tsconfig.build.json ./
+
+EXPOSE 4000
+
+CMD ["npm", "run", "dev"]
