@@ -42,7 +42,7 @@ export class JuniorsService {
     email: string,
     throwIfNotfound = true,
   ): Promise<JuniorMDBEntity> {
-    if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    if (!email) {
       throw new BadRequestException('Email inválido.');
     }
 
@@ -57,11 +57,6 @@ export class JuniorsService {
 
   async findAll(): Promise<JuniorMDBEntity[]> {
     const juniors = await this.juniormdbRepository.find();
-
-    if (juniors.length === 0) {
-      throw new NotFoundException('Nenhum dado encontrado.');
-    }
-
     return juniors;
   }
 }

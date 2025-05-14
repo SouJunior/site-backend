@@ -58,7 +58,7 @@ export class JuniorsController {
     type: BadRequestException,
   })
   @Get(':email')
-  async getByEmail(@Param('email') email: string): Promise<CreateJuniorDto> {
+  async getByEmail(@Param('email') email: string): Promise<JuniorMDBEntity> {
     const junior = await this.juniorsService.findJuniorByEmail(email);
     return junior;
   }
@@ -77,7 +77,7 @@ export class JuniorsController {
     type: BadRequestException,
   })
   @Get()
-  async getAll(): Promise<CreateJuniorDto[]> {
+  async getAll(): Promise<JuniorMDBEntity[]> {
     const juniors = await this.juniorsService.findAll();
     return juniors;
   }

@@ -20,7 +20,7 @@ export class HeadService {
     email: string,
     throwIfNotfound = true,
   ): Promise<HeadEntity> {
-    if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    if (!email) {
       throw new BadRequestException('Email inválido.');
     }
 
@@ -52,11 +52,6 @@ export class HeadService {
 
   async findAll(): Promise<HeadEntity[]> {
     const heads = await this.headEntityRepo.find();
-
-    if (heads.length === 0) {
-      throw new NotFoundException('Nenhum dado encontrado');
-    }
-
     return heads;
   }
 }

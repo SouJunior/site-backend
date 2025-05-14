@@ -58,7 +58,7 @@ export class SupporterController {
     type: BadRequestException,
   })
   @Get(':email')
-  async getByEmail(@Param('email') email: string) {
+  async getByEmail(@Param('email') email: string): Promise<SupporterEntity> {
     const supporter = await this.supporterService.findSupporterByEmail(email);
     return supporter;
   }

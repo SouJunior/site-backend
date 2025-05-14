@@ -20,7 +20,7 @@ export class SupporterService {
     email: string,
     throwIfNotfound = true,
   ): Promise<SupporterEntity> {
-    if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    if (!email) {
       throw new BadRequestException('Email inválido.');
     }
 
@@ -61,11 +61,6 @@ export class SupporterService {
 
   async findAll(): Promise<SupporterEntity[]> {
     const supporters = await this.supporterEntityRepo.find();
-
-    if (supporters.length === 0) {
-      throw new NotFoundException('Nenhum dado encontrado');
-    }
-
     return supporters;
   }
 }

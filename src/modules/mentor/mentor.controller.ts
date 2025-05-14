@@ -58,7 +58,7 @@ export class MentorController {
     type: BadRequestException,
   })
   @Get(':email')
-  async getByEmail(@Param('email') email: string): Promise<CreateMentorDTO> {
+  async getByEmail(@Param('email') email: string): Promise<MentorEntity> {
     const mentor = await this.mentorService.findMentorByEmail(email);
     return mentor;
   }

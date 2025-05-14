@@ -56,7 +56,7 @@ export class HeadController {
     type: BadRequestException,
   })
   @Get(':email')
-  async getByEmail(@Param('email') email: string) {
+  async getByEmail(@Param('email') email: string): Promise<HeadEntity> {
     const head = await this.headService.findHeadByEmail(email);
     return head;
   }

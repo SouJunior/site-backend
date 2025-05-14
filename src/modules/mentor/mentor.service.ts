@@ -20,7 +20,7 @@ export class MentorService {
     email: string,
     throwIfNotFound = true,
   ): Promise<MentorEntity> {
-    if (!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    if (!email) {
       throw new BadRequestException('Email inválido.');
     }
 
@@ -56,11 +56,6 @@ export class MentorService {
 
   async findAll(): Promise<MentorEntity[]> {
     const mentors = await this.mentorEntityRepo.find();
-
-    if (mentors.length === 0) {
-      throw new NotFoundException('Nenhum dado encontrado');
-    }
-
     return mentors;
   }
 }
