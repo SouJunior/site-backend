@@ -38,7 +38,7 @@ services:
       - '4000:4000'
     environment:
       - NODE_ENV=${NODE_ENV}
-      - SERCRET_KEY=${SECRET_KEY}
+      - SECRET_KEY=${SECRET_KEY}
       - MDB_URL=${MDB_URL}
 
   # docker-compose up app-dev
