@@ -64,14 +64,20 @@ export class JuniorsService {
 }
 
 
-function parseFilter(filters: FilterJuniorsDTO): any{
-    const where: Record<any, any> = {};
+function parseFilter(filters: FilterJuniorsDTO): Record<string, any>{
+    const where: Record<string, any> = {};
 
-    for (const [key, value] of Object.entries(filters)) {
-        if (value !== undefined && value !== null && key !== 'startDate') {
-            where[key] = value;
+    const simpleFields = ['name', 'email', 'linkedin', 'area', 'subarea', 'indication', 
+                         'linkedinIndication', 'availability', 'turn', 'startOption', 
+                         'toolsKnowledge', 'fieldKnowledge', 'volunteerMotivation', 
+                         'contactAgreement', 'termsAgreement'];
+
+    simpleFields.forEach(field => {
+        const value = filters[field as keyof FilterJuniorsDTO];
+        if (value !== undefined && value !== null) {
+            where[field] = value;
         }
-    }
+    });
 
     if (filters.startDate !== null && filters.startDate !== undefined){
         where['startDate'] = { $gte: filters.startDate};
