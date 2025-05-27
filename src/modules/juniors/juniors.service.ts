@@ -5,15 +5,16 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MongoRepository } from 'typeorm';
 import { CreateJuniorDto } from './dtos/create-junior-dto';
 import { JuniorMDBEntity } from 'src/database/entities/juniormdb.mongo-entity';
+import { FilterJuniorsDTO } from './dtos/filter-junior-dto';
 
 @Injectable()
 export class JuniorsService {
   constructor(
     @InjectRepository(JuniorMDBEntity, 'mongoConnection')
-    private readonly juniormdbRepository: Repository<JuniorMDBEntity>,
+    private readonly juniormdbRepository: MongoRepository<JuniorMDBEntity>,
   ) {}
 
   async create(createJuniorDto: CreateJuniorDto): Promise<JuniorMDBEntity> {
@@ -55,8 +56,26 @@ export class JuniorsService {
     return junior;
   }
 
-  async findAll(): Promise<JuniorMDBEntity[]> {
-    const juniors = await this.juniormdbRepository.find();
+  async findAll(filters: FilterJuniorsDTO): Promise<JuniorMDBEntity[]> {
+    const where = parseFilter(filters);
+    const juniors = await this.juniormdbRepository.find(where);
     return juniors;
   }
+}
+
+
+function parseFilter(filters: FilterJuniorsDTO): any{
+    const where: Record<any, any> = {};
+
+    for (const [key, value] of Object.entries(filters)) {
+        if (value !== undefined && value !== null && key !== 'startDate') {
+            where[key] = value;
+        }
+    }
+
+    if (filters.startDate !== null && filters.startDate !== undefined){
+        where['startDate'] = { $gte: filters.startDate};
+    }
+        
+    return where;
 }
