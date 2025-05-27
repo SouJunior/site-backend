@@ -1,48 +1,62 @@
-import { HttpException, HttpStatus, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { JuniorEntity } from 'src/database/entities/junior.entity';
 import { Repository } from 'typeorm';
 import { CreateJuniorDto } from './dtos/create-junior-dto';
-import { Area } from 'src/database/entities/area.entity';
-import { Subarea } from 'src/database/entities/subarea.entity';
 import { JuniorMDBEntity } from 'src/database/entities/juniormdb.mongo-entity';
-
 
 @Injectable()
 export class JuniorsService {
-    constructor(
-       /* @InjectRepository(JuniorEntity)
-        private readonly juniorRepository: Repository<JuniorEntity>,
+  constructor(
+    @InjectRepository(JuniorMDBEntity, 'mongoConnection')
+    private readonly juniormdbRepository: Repository<JuniorMDBEntity>,
+  ) {}
 
-        @InjectRepository(Area)
-        private readonly areaRepository: Repository<Area>,
+  async create(createJuniorDto: CreateJuniorDto): Promise<JuniorMDBEntity> {
+    const juniorExists = await this.findJuniorByEmail(
+      createJuniorDto.email,
+      false,
+    );
 
-        @InjectRepository(Subarea)
-        private readonly subareaRepository: Repository<Subarea>,*/
-
-        @InjectRepository(JuniorMDBEntity, 'mongoConnection')
-        private readonly juniormdbRepository: Repository<JuniorMDBEntity>
-    ) { }
-
-    async create(createJuniorDto: CreateJuniorDto): Promise<JuniorMDBEntity> {
-
-        const juniorMDB = this.juniormdbRepository.create({
-            ...createJuniorDto,
-            startDate: new Date(createJuniorDto.startDate)
-        });
-
-
-        
-        return this.juniormdbRepository.save(juniorMDB);
+    if (juniorExists) {
+      throw new ConflictException('Já existe um junior com esse email.');
     }
 
-    async findJuniorByEmail(email: string): Promise<JuniorMDBEntity> {
-        const junior = await this.juniormdbRepository.findOne({where: { email }});
+    const juniorMDB = this.juniormdbRepository.create({
+      ...createJuniorDto,
+      startDate: new Date(createJuniorDto.startDate),
+    });
 
-        if (!junior) {
-            return null;
-        }
-
-        return junior;
+    if (!juniorMDB) {
+      throw new BadRequestException('Junior não foi criado.');
     }
+
+    return this.juniormdbRepository.save(juniorMDB);
+  }
+
+  async findJuniorByEmail(
+    email: string,
+    throwIfNotfound = true,
+  ): Promise<JuniorMDBEntity> {
+    if (!email) {
+      throw new BadRequestException('Email inválido.');
+    }
+
+    const junior = await this.juniormdbRepository.findOne({ where: { email } });
+
+    if (!junior && throwIfNotfound) {
+      throw new NotFoundException('Junior não encontrado.');
+    }
+
+    return junior;
+  }
+
+  async findAll(): Promise<JuniorMDBEntity[]> {
+    const juniors = await this.juniormdbRepository.find();
+    return juniors;
+  }
 }
