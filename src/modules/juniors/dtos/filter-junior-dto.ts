@@ -12,10 +12,12 @@ export class FilterJuniorsDTO{
     linkedin ?: string;
     
     @IsOptional()
+    @IsInt()
     @Transform(({ value }) => parseInt(value, 10))
     area ?: number;
     
     @IsOptional()
+    @IsInt()
     @Transform(({ value }) => parseInt(value, 10))
     subarea ?: number;
     
@@ -54,7 +56,15 @@ export class FilterJuniorsDTO{
     termsAgreement ?: boolean;
 
     @IsOptional()
-    @Transform(({value}) => new Date(value))
+    @Transform(({value}) => {  
+        if (!value) 
+            return undefined;  
+        const date = new Date(value);  
+        if (isNaN(date.getTime())) {  
+            throw new Error(`Invalid date format: ${value}`);  
+        }  
+        return date;  
+    }) 
     @Type(() => Date)
     startDate ?: Date;
 }
