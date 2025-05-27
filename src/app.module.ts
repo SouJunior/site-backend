@@ -1,7 +1,5 @@
 import {  Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { SendMailModule } from './modules/mails/send-mail.module';
-import { SponsorModule } from './modules/sponsor/sponsor.module';
 import { MailModule } from './shared/providers/mailer/mailer.module';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -27,8 +25,6 @@ import { SupporterModule } from './modules/supporter/supporter.module';
       synchronize: true,
       entities: ['dist/**/*.mongo-entity{.ts,.js}'],
     }),
-    //SponsorModule,
-    //SendMailModule,
     UserModule,
     AuthModule,
     TypeOrmModule,
