@@ -13,7 +13,7 @@ import { ExportJuniorsCsvSwagger } from 'src/shared/swagger/decorators/junior/ex
 
 
 @ApiTags('Junior')
-@Controller('junior')
+@Controller('juniors')
 export class JuniorsController {
   constructor(private readonly juniorsService: JuniorsService) {}
 
