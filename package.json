@@ -25,6 +25,7 @@
     "docker:env": "bash ./docker-env.sh"
   },
   "dependencies": {
+    "@json2csv/node": "^7.0.6",
     "@nestjs-modules/mailer": "^1.6.1",
     "@nestjs/common": "^10.3.9",
     "@nestjs/config": "^3.2.2",

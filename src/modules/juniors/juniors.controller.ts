@@ -4,7 +4,7 @@ import { CreateJuniorDto } from './dtos/create-junior-dto';
 import { ApiTags } from '@nestjs/swagger';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
 import { JuniorMDBEntity } from '../../database/entities/juniormdb.mongo-entity';
-import {Parser} from 'json2csv';
+import {AsyncParser} from '@json2csv/node';
 import { FilterJuniorsDTO } from './dtos/filter-junior-dto';
 import { Readable } from 'typeorm/platform/PlatformTools';
 import { GetJuniorsSwagger } from 'src/shared/swagger/decorators/junior/getJuniors.swagger';
@@ -50,8 +50,8 @@ export class JuniorsController {
 
     const fields = ['name', 'email', 'area', 'subarea', 'linkedin'];
     const opts = { fields };
-    const parser = new Parser(opts);
-    const csv = parser.parse(juniors);
+    const parser = new AsyncParser(opts);
+    const csv = await parser.parse(juniors).promise();
 
     const readableStream = new Readable();
     readableStream.push(csv);
