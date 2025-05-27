@@ -58,7 +58,7 @@ export class JuniorsService {
 
   async findAll(filters: FilterJuniorsDTO): Promise<JuniorMDBEntity[]> {
     const where = parseFilter(filters);
-    const juniors = await this.juniormdbRepository.find(where);
+    const juniors = await this.juniormdbRepository.find({where});
     return juniors;
   }
 }
