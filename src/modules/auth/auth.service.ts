@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { AdminService } from '../admin/admin.service';
+import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly adminService: AdminService,
+    private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
   async signIn(email: string, password: string) {
-    const user = await this.adminService.getUserByEmail(email);
+    const user = await this.userService.getUserByEmail(email);
     if (user && user.password === password) {
       const payload = { email: user.email };
       const accessToken = this.jwtService.sign(payload);

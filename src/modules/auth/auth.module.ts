@@ -4,7 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserEntity } from 'src/database/entities/user.mongo-entity';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { AdminService } from '../admin/admin.service';
+import { UserService } from '../user/user.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt/jwt.strategy';
 
@@ -18,6 +18,6 @@ import { JwtStrategy } from './jwt/jwt.strategy';
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService, AdminService, JwtStrategy],
+  providers: [AuthService, UserService, JwtStrategy],
 })
 export class AuthModule {}

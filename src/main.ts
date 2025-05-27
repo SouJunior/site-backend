@@ -10,15 +10,17 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    .setTitle('SouJunior website')
-    .setDescription('The website SouJunior')
-    .setVersion('1.0.0')
+    .setTitle('API - SouJunior Website')
+    .setDescription('API do site institucional da SouJunior')
+    .setVersion('2.0.0')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true
+  }));
   await app.listen(process.env.PORT || 4000);
 }
 bootstrap();
