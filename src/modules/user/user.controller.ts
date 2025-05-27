@@ -18,11 +18,11 @@ import { ApiTags } from '@nestjs/swagger';
 @Controller('users')
 @ApiTags("Users")
 export class UserController {
-  constructor(private readonly adminService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
-    return this.adminService.createUser(createUserDto);
+    return this.userService.createUser(createUserDto);
   }
 
   @Patch(':id')
@@ -30,22 +30,22 @@ export class UserController {
     @Param('id') id: ObjectId,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.adminService.editUser(id, updateUserDto);
+    return this.userService.editUser(id, updateUserDto);
   }
 
   @Delete(':id')
   async deleteUser(@Param('id') id: ObjectId) {
-    return this.adminService.deleteUser(id);
+    return this.userService.deleteUser(id);
   }
 
   @Get()
   async getAllUsers(): Promise<UserEntity[]> {
-    return this.adminService.getAllUsers();
+    return this.userService.getAllUsers();
   }
 
   @Get(':id')
   async getUserById(@Param('id') id: ObjectId): Promise<UserEntity> {
-    const user = await this.adminService.getUserById(id);
+    const user = await this.userService.getUserById(id);
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -54,7 +54,7 @@ export class UserController {
 
   @Get(':email')
   async getUserByEmail(@Param('email') email: string): Promise<UserEntity> {
-    const user = await this.adminService.getUserByEmail(email);
+    const user = await this.userService.getUserByEmail(email);
     if (!user) {
       throw new NotFoundException('User not found');
     }
