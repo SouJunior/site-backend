@@ -1,22 +1,29 @@
-import { Body, Controller,  Post, UseGuards, Get, NotFoundException, Query, StreamableFile} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+  Get,
+  NotFoundException,
+  Query,
+  StreamableFile,
+} from '@nestjs/common';
 import { JuniorsService } from './juniors.service';
 import { CreateJuniorDto } from './dtos/create-junior-dto';
 import { ApiTags } from '@nestjs/swagger';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
 import { JuniorMDBEntity } from '../../database/entities/juniormdb.mongo-entity';
-import {AsyncParser} from '@json2csv/node';
+import { AsyncParser } from '@json2csv/node';
 import { FilterJuniorsDTO } from './dtos/filter-junior-dto';
 import { Readable } from 'typeorm/platform/PlatformTools';
 import { GetJuniorsSwagger } from 'src/shared/swagger/decorators/junior/getJuniors.swagger';
 import { CreateJuniorSwagger } from 'src/shared/swagger/decorators/junior/createJunior.swagger';
 import { ExportJuniorsCsvSwagger } from 'src/shared/swagger/decorators/junior/exportJuniorsCsv.swagger';
 
-
 @ApiTags('Junior')
 @Controller('juniors')
 export class JuniorsController {
   constructor(private readonly juniorsService: JuniorsService) {}
-
 
   @Post()
   @UseGuards(SecretKeyGuard)
@@ -30,10 +37,12 @@ export class JuniorsController {
 
   @Get()
   @GetJuniorsSwagger()
-  async getJuniors(@Query('email') email?: string): Promise<JuniorMDBEntity[]> {
-    if(email){
+  async getJuniors(
+    @Query('email') email?: string,
+  ): Promise<JuniorMDBEntity[] | JuniorMDBEntity> {
+    if (email) {
       const junior = await this.juniorsService.findJuniorByEmail(email);
-      return [junior];
+      return junior;
     }
     const juniors = await this.juniorsService.findAll({});
     return juniors;
@@ -41,7 +50,9 @@ export class JuniorsController {
 
   @Get('csv')
   @ExportJuniorsCsvSwagger()
-  async exportJuniorsAsCSV(@Query() filters: FilterJuniorsDTO): Promise<StreamableFile> {
+  async exportJuniorsAsCSV(
+    @Query() filters: FilterJuniorsDTO,
+  ): Promise<StreamableFile> {
     const juniors = await this.juniorsService.findAll(filters);
 
     if (!juniors || juniors.length === 0) {
@@ -58,8 +69,8 @@ export class JuniorsController {
     readableStream.push(null);
 
     return new StreamableFile(readableStream, {
-        disposition: 'attachment; filename="juniors.csv"',
-        type: 'text/csv',
-      });
-    }
+      disposition: 'attachment; filename="juniors.csv"',
+      type: 'text/csv',
+    });
+  }
 }

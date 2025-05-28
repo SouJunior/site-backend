@@ -3,11 +3,18 @@ import {
   Body,
   Controller,
   Get,
-  Param,
+  NotFoundException,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiHeader, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiHeader,
+  ApiTags,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { SupporterEntity } from 'src/database/entities/supporter.mongo-entity';
 import { SupporterService } from './supporter.service';
 import { CreateSupporterDTO } from './dto/create-supporter-dto';
@@ -45,26 +52,8 @@ export class SupporterController {
   }
 
   @ApiOperation({
-    summary: 'Resgata registro do apoiador no banco.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Sucesso',
-    type: CreateSupporterDTO,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Erro',
-    type: BadRequestException,
-  })
-  @Get(':email')
-  async getByEmail(@Param('email') email: string): Promise<SupporterEntity> {
-    const supporter = await this.supporterService.findSupporterByEmail(email);
-    return supporter;
-  }
-
-  @ApiOperation({
-    summary: 'Resgata todos os apoiadores do banco.',
+    summary:
+      'Resgata um apoiador do banco por email ou todos, se nenhum email for fornecido',
   })
   @ApiResponse({
     status: 200,
@@ -73,11 +62,29 @@ export class SupporterController {
   })
   @ApiResponse({
     status: 400,
-    description: 'Erro',
+    description: 'Erro ao requisitar o apoiador',
     type: BadRequestException,
   })
+  @ApiResponse({
+    status: 404,
+    description: 'Apoiador não encontrado',
+    type: NotFoundException,
+  })
+  @ApiQuery({
+    name: 'email',
+    description: 'Email do apoiador (opcional)',
+    required: false,
+    type: String,
+  })
   @Get()
-  async getAll(): Promise<SupporterEntity[]> {
+  async getAll(
+    @Query('email') email?: string,
+  ): Promise<SupporterEntity[] | SupporterEntity> {
+    if (email) {
+      const supporter = await this.supporterService.findSupporterByEmail(email);
+      return supporter;
+    }
+
     const supporters = await this.supporterService.findAll();
     return supporters;
   }
