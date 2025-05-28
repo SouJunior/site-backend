@@ -19,6 +19,7 @@ import { HeadEntity } from 'src/database/entities/head.mongo-entity';
 import { HeadService } from './head.service';
 import { CreateHeadDTO } from './dto/create-head-dto';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
+import { HeadResponseDTO } from './dto/head-response.dto';
 
 @ApiTags('Head')
 @Controller('head')
@@ -31,7 +32,7 @@ export class HeadController {
   @ApiResponse({
     status: 200,
     description: 'Sucesso',
-    type: CreateHeadDTO,
+    type: HeadResponseDTO,
   })
   @ApiResponse({
     status: 400,
@@ -56,7 +57,8 @@ export class HeadController {
   @ApiResponse({
     status: 200,
     description: 'Sucesso',
-    type: [CreateHeadDTO],
+    type: HeadResponseDTO,
+    isArray: true,
   })
   @ApiResponse({
     status: 400,

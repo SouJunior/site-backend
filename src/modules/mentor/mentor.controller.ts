@@ -19,6 +19,7 @@ import { MentorEntity } from 'src/database/entities/mentor.mongo-entity';
 import { MentorService } from './mentor.service';
 import { CreateMentorDTO } from './dto/create-mentor-dto';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
+import { MentorResponseDTO } from './dto/mentor-response.dto';
 
 @ApiTags('Mentor')
 @Controller('mentor')
@@ -31,7 +32,7 @@ export class MentorController {
   @ApiResponse({
     status: 200,
     description: 'Sucesso',
-    type: CreateMentorDTO,
+    type: MentorResponseDTO,
   })
   @ApiResponse({
     status: 400,
@@ -58,7 +59,8 @@ export class MentorController {
   @ApiResponse({
     status: 200,
     description: 'Sucesso',
-    type: [CreateMentorDTO],
+    type: MentorResponseDTO,
+    isArray: true,
   })
   @ApiResponse({
     status: 400,

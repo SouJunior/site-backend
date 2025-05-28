@@ -19,6 +19,7 @@ import { SupporterEntity } from 'src/database/entities/supporter.mongo-entity';
 import { SupporterService } from './supporter.service';
 import { CreateSupporterDTO } from './dto/create-supporter-dto';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
+import { SupporterResponseDTO } from './dto/supporter-response.dto';
 
 @ApiTags('Supporter')
 @Controller('supporter')
@@ -58,7 +59,8 @@ export class SupporterController {
   @ApiResponse({
     status: 200,
     description: 'Sucesso',
-    type: [CreateSupporterDTO],
+    type: SupporterResponseDTO,
+    isArray: true,
   })
   @ApiResponse({
     status: 400,
