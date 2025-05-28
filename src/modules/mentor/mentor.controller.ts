@@ -3,11 +3,18 @@ import {
   Body,
   Controller,
   Get,
-  Param,
+  NotFoundException,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiHeader, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiHeader,
+  ApiTags,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { MentorEntity } from 'src/database/entities/mentor.mongo-entity';
 import { MentorService } from './mentor.service';
 import { CreateMentorDTO } from './dto/create-mentor-dto';
@@ -45,26 +52,8 @@ export class MentorController {
   }
 
   @ApiOperation({
-    summary: 'Resgata informações do mentor no banco.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Sucesso',
-    type: CreateMentorDTO,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Erro',
-    type: BadRequestException,
-  })
-  @Get(':email')
-  async getByEmail(@Param('email') email: string): Promise<MentorEntity> {
-    const mentor = await this.mentorService.findMentorByEmail(email);
-    return mentor;
-  }
-
-  @ApiOperation({
-    summary: 'Resgata todos os mentores do banco.',
+    summary:
+      'Resgata um mentor do banco por email ou todos, se nenhum email for fornecido',
   })
   @ApiResponse({
     status: 200,
@@ -73,11 +62,28 @@ export class MentorController {
   })
   @ApiResponse({
     status: 400,
-    description: 'Erro',
+    description: 'Erro ao requisitar o mentor',
     type: BadRequestException,
   })
+  @ApiResponse({
+    status: 404,
+    description: 'Mentor não encontrado',
+    type: NotFoundException,
+  })
+  @ApiQuery({
+    name: 'email',
+    description: 'Email do mentor (opcional)',
+    required: false,
+    type: String,
+  })
   @Get()
-  async getAll(): Promise<MentorEntity[]> {
+  async getAll(
+    @Query('email') email?: string,
+  ): Promise<MentorEntity[] | MentorEntity> {
+    if (email) {
+      const mentor = await this.mentorService.findMentorByEmail(email);
+      return mentor;
+    }
     const mentors = await this.mentorService.findAll();
     return mentors;
   }

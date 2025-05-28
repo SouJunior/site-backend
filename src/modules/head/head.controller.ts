@@ -3,11 +3,18 @@ import {
   Body,
   Controller,
   Get,
-  Param,
+  NotFoundException,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiHeader, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiResponse,
+  ApiHeader,
+  ApiTags,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { HeadEntity } from 'src/database/entities/head.mongo-entity';
 import { HeadService } from './head.service';
 import { CreateHeadDTO } from './dto/create-head-dto';
@@ -43,26 +50,8 @@ export class HeadController {
   }
 
   @ApiOperation({
-    summary: 'Resgata informações do head no banco.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Sucesso',
-    type: CreateHeadDTO,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Erro',
-    type: BadRequestException,
-  })
-  @Get(':email')
-  async getByEmail(@Param('email') email: string): Promise<HeadEntity> {
-    const head = await this.headService.findHeadByEmail(email);
-    return head;
-  }
-
-  @ApiOperation({
-    summary: 'Resgata todos os heads do banco.',
+    summary:
+      'Resgata um head do banco por email ou todos, se nenhum email for fornecido',
   })
   @ApiResponse({
     status: 200,
@@ -71,11 +60,28 @@ export class HeadController {
   })
   @ApiResponse({
     status: 400,
-    description: 'Erro',
+    description: 'Erro ao requisitar o head',
     type: BadRequestException,
   })
+  @ApiResponse({
+    status: 404,
+    description: 'Head não encontrado',
+    type: NotFoundException,
+  })
+  @ApiQuery({
+    name: 'email',
+    description: 'Email do head (opcional)',
+    required: false,
+    type: String,
+  })
   @Get()
-  async getAll(): Promise<HeadEntity[]> {
+  async getAll(
+    @Query('email') email?: string,
+  ): Promise<HeadEntity[] | HeadEntity> {
+    if (email) {
+      const head = await this.headService.findHeadByEmail(email);
+      return head;
+    }
     const heads = await this.headService.findAll();
     return heads;
   }
