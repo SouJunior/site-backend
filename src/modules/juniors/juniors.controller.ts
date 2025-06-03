@@ -19,6 +19,8 @@ import { Readable } from 'typeorm/platform/PlatformTools';
 import { GetJuniorsSwagger } from 'src/shared/swagger/decorators/junior/getJuniors.swagger';
 import { CreateJuniorSwagger } from 'src/shared/swagger/decorators/junior/createJunior.swagger';
 import { ExportJuniorsCsvSwagger } from 'src/shared/swagger/decorators/junior/exportJuniorsCsv.swagger';
+import { PageOptionsDto } from 'src/shared/pagination/page-options.dto';
+import PageDto from 'src/shared/pagination/page.dto';
 
 @ApiTags('Junior')
 @Controller('juniors')
@@ -38,13 +40,15 @@ export class JuniorsController {
   @Get()
   @GetJuniorsSwagger()
   async getJuniors(
+    @Query() pageOptionsDto: PageOptionsDto,
     @Query('email') email?: string,
-  ): Promise<JuniorMDBEntity[] | JuniorMDBEntity> {
+  ): Promise<PageDto<JuniorMDBEntity> | JuniorMDBEntity> {
     if (email) {
       const junior = await this.juniorsService.findJuniorByEmail(email);
       return junior;
     }
-    const juniors = await this.juniorsService.findAll({});
+
+    const juniors = await this.juniorsService.findAll(pageOptionsDto);
     return juniors;
   }
 
@@ -53,7 +57,7 @@ export class JuniorsController {
   async exportJuniorsAsCSV(
     @Query() filters: FilterJuniorsDTO,
   ): Promise<StreamableFile> {
-    const juniors = await this.juniorsService.findAll(filters);
+    const juniors = await this.juniorsService.findAllToCsv(filters);
 
     if (!juniors || juniors.length === 0) {
       throw new NotFoundException('Nenhum junior encontrado.');

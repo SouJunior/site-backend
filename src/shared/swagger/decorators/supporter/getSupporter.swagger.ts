@@ -4,7 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { SupporterResponseDTO } from 'src/modules/supporter/dto/supporter-response.dto';
+import { PaginatedSupporterResponseDTO } from 'src/modules/supporter/dto/paginated-supporter.dto';
+import { Order } from 'src/shared/enum/pagination-order';
 
 export function GetSupporterSwagger() {
   return applyDecorators(
@@ -12,6 +13,30 @@ export function GetSupporterSwagger() {
       summary:
         'Resgata um apoiador do banco por email ou todos, se nenhum email for fornecido',
     }),
+    ApiQuery({
+      name: 'page',
+      description: 'Número da página, padrão 1, mínimo 1',
+      required: false,
+      type: Number,
+      example: 1,
+    }),
+    ApiQuery({
+      name: 'take',
+      description:
+        'Quantidade de resultados por página, padrão 10, mínimo 1, máximo 50',
+      required: false,
+      type: Number,
+      example: 10,
+    }),
+    ApiQuery({
+      name: 'order',
+      description: 'Ordenação dos resultados',
+      required: false,
+      type: String,
+      enum: Order,
+      example: Order.ASC,
+    }),
+
     ApiQuery({
       name: 'email',
       description: 'Email do apoiador (opcional)',
@@ -21,8 +46,7 @@ export function GetSupporterSwagger() {
     ApiResponse({
       status: 200,
       description: 'Sucesso',
-      type: SupporterResponseDTO,
-      isArray: true,
+      type: PaginatedSupporterResponseDTO,
     }),
     ApiResponse({
       status: 400,

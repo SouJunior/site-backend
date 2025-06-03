@@ -8,6 +8,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SupporterEntity } from 'src/database/entities/supporter.mongo-entity';
 import { CreateSupporterDTO } from './dto/create-supporter-dto';
+import { PageOptionsDto } from 'src/shared/pagination/page-options.dto';
+import PageDto from 'src/shared/pagination/page.dto';
+import PageMetaDto from 'src/shared/pagination/page-meta.dto';
 
 @Injectable()
 export class SupporterService {
@@ -59,8 +62,22 @@ export class SupporterService {
     return this.supporterEntityRepo.save(supporter);
   }
 
-  async findAll(): Promise<SupporterEntity[]> {
-    const supporters = await this.supporterEntityRepo.find();
-    return supporters;
+  async findAll(
+    pageOptionsDto: PageOptionsDto,
+  ): Promise<PageDto<SupporterEntity>> {
+    const orderDirection = pageOptionsDto.order === 'ASC' ? 'ASC' : 'DESC';
+
+    const [data, itemCount] = await Promise.all([
+      this.supporterEntityRepo.find({
+        order: {},
+        skip: pageOptionsDto.skip,
+        take: pageOptionsDto.take,
+      }),
+      this.supporterEntityRepo.count(),
+    ]);
+
+    const meta = new PageMetaDto({ pageOptionsDto: pageOptionsDto, itemCount });
+
+    return new PageDto(data, meta);
   }
 }

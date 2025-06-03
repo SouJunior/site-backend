@@ -6,6 +6,8 @@ import { CreateHeadDTO } from './dto/create-head-dto';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
 import { CreateHeadSwagger } from 'src/shared/swagger/decorators/head/createHead.swagger';
 import { GetHeadSwagger } from 'src/shared/swagger/decorators/head/getHead.swagger';
+import { PageOptionsDto } from 'src/shared/pagination/page-options.dto';
+import PageDto from 'src/shared/pagination/page.dto';
 
 @ApiTags('Head')
 @Controller('head')
@@ -23,13 +25,15 @@ export class HeadController {
   @GetHeadSwagger()
   @Get()
   async getAll(
+    @Query() pageOptionsDto: PageOptionsDto,
     @Query('email') email?: string,
-  ): Promise<HeadEntity[] | HeadEntity> {
+  ): Promise<PageDto<HeadEntity> | HeadEntity> {
     if (email) {
       const head = await this.headService.findHeadByEmail(email);
       return head;
     }
-    const heads = await this.headService.findAll();
+
+    const heads = await this.headService.findAll(pageOptionsDto);
     return heads;
   }
 }

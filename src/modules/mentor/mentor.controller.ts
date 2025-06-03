@@ -6,6 +6,8 @@ import { CreateMentorDTO } from './dto/create-mentor-dto';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
 import { CreateMentorSwagger } from 'src/shared/swagger/decorators/mentor/createMentor.swagger';
 import { GetMentorSwagger } from 'src/shared/swagger/decorators/mentor/getMentor.swagger';
+import { PageOptionsDto } from 'src/shared/pagination/page-options.dto';
+import PageDto from 'src/shared/pagination/page.dto';
 
 @ApiTags('Mentor')
 @Controller('mentor')
@@ -25,13 +27,14 @@ export class MentorController {
   @GetMentorSwagger()
   @Get()
   async getAll(
+    @Query() pageOptionsDto: PageOptionsDto,
     @Query('email') email?: string,
-  ): Promise<MentorEntity[] | MentorEntity> {
+  ): Promise<PageDto<MentorEntity> | MentorEntity> {
     if (email) {
       const mentor = await this.mentorService.findMentorByEmail(email);
       return mentor;
     }
-    const mentors = await this.mentorService.findAll();
+    const mentors = await this.mentorService.findAll(pageOptionsDto);
     return mentors;
   }
 }

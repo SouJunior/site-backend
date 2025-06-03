@@ -8,6 +8,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateMentorDTO } from './dto/create-mentor-dto';
 import { MentorEntity } from 'src/database/entities/mentor.mongo-entity';
+import { PageOptionsDto } from 'src/shared/pagination/page-options.dto';
+import PageDto from 'src/shared/pagination/page.dto';
+import PageMetaDto from 'src/shared/pagination/page-meta.dto';
 
 @Injectable()
 export class MentorService {
@@ -54,8 +57,22 @@ export class MentorService {
     return this.mentorEntityRepo.save(mentor);
   }
 
-  async findAll(): Promise<MentorEntity[]> {
-    const mentors = await this.mentorEntityRepo.find();
-    return mentors;
+  async findAll(
+    pageOptionsDto: PageOptionsDto,
+  ): Promise<PageDto<MentorEntity>> {
+    const orderDirection = pageOptionsDto.order === 'ASC' ? 'ASC' : 'DESC';
+
+    const [data, itemCount] = await Promise.all([
+      this.mentorEntityRepo.find({
+        order: {},
+        skip: pageOptionsDto.skip,
+        take: pageOptionsDto.take,
+      }),
+      this.mentorEntityRepo.count(),
+    ]);
+
+    const meta = new PageMetaDto({ pageOptionsDto, itemCount });
+
+    return new PageDto(data, meta);
   }
 }
