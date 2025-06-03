@@ -9,7 +9,7 @@ export class AreaController {
 @Get()
 async findAll(): Promise<AreaDto[]> {
   try {
-    return await this.areaService.getAreasWithSubareas();
+    return await this.areaService.getAreas();
   } catch (error) {
     throw new HttpException(
       'Erro ao obter areas.',

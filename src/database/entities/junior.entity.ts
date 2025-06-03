@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
-import { Area } from "./area.entity";
-import { Subarea } from "./subarea.entity";
+import { Area } from "./area.mongo-entity";
+import { Subarea } from "./subarea.mongo-entity";
 
 @Entity("Juniors")
 export class JuniorEntity {
