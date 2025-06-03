@@ -1,22 +1,16 @@
-import { Column, ObjectId, ObjectIdColumn } from "typeorm";
+import { ObjectId } from "typeorm";
 
 export class JuniorDataCsvDto{
-      @ObjectIdColumn()
       id: ObjectId;
     
-      @Column()
       name: string;
     
-      @Column()
       email: string;
     
-      @Column()
       linkedin: string;
     
-      @Column()
       area: string;
     
-      @Column()
       subarea ?: string;
 
 

@@ -96,12 +96,12 @@ export class JuniorsService {
     juniors.forEach((junior) => {
       csvData.push(
         new JuniorDataCsvDto(
-          junior["id"],
-          junior["name"],
-          junior["email"],
-          junior["linkedin"],
-          parsedAreas[junior["area"]],
-          parsedSubareas[junior["subarea"]]
+          junior.id,
+          junior.name,
+          junior.email,
+          junior.linkedin,
+          parsedAreas[junior.area],
+          parsedSubareas[junior.subarea]
         )
       )
     })
