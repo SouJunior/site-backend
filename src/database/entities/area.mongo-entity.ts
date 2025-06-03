@@ -1,14 +1,11 @@
 import { OneToMany, Entity, Column, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
-import { Subarea } from "./subarea.entity";
+import { Subarea } from "./subarea.mongo-entity";
 
-@Entity("Areas")
+@Entity("Area")
 export class Area {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     name: string;
-
-    @OneToMany(() => Subarea, subarea => subarea.area)
-    subareas: Subarea[];
 }
