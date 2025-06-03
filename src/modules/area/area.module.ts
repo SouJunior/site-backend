@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AreaService } from './area.service';
 import { AreaController } from './area.controller';
-import { Area } from 'src/database/entities/area.entity';
+import { Area } from 'src/database/entities/area.mongo-entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
