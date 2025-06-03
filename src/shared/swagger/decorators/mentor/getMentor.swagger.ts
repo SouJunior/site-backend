@@ -4,14 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { PaginatedJuniorResponseDTO } from 'src/modules/juniors/dtos/paginated-junior.dto';
+import { PaginatedMentorResponseDTO } from 'src/modules/mentor/dto/paginated-mentor-response.dto';
 import { Order } from 'src/shared/enum/pagination-order';
 
-export function GetJuniorsSwagger() {
+export function GetMentorSwagger() {
   return applyDecorators(
     ApiOperation({
       summary:
-        'Resgata um junior do banco por email ou todos, se nenhum email for fornecido',
+        'Resgata um mentor do banco por email ou todos, se nenhum email for fornecido',
     }),
     ApiQuery({
       name: 'page',
@@ -39,23 +39,23 @@ export function GetJuniorsSwagger() {
 
     ApiQuery({
       name: 'email',
-      description: 'Email do júnior (opcional)',
+      description: 'Email do mentor (opcional)',
       required: false,
       type: String,
     }),
     ApiResponse({
       status: 200,
       description: 'Sucesso',
-      type: PaginatedJuniorResponseDTO,
+      type: PaginatedMentorResponseDTO,
     }),
     ApiResponse({
       status: 400,
-      description: 'Erro ao requisitar o júnior',
+      description: 'Erro ao requisitar o mentor',
       type: BadRequestException,
     }),
     ApiResponse({
       status: 404,
-      description: 'Júnior não encontrado',
+      description: 'Mentor não encontrado',
       type: NotFoundException,
     }),
   );

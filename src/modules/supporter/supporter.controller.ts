@@ -1,40 +1,20 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiHeader, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { SupporterEntity } from 'src/database/entities/supporter.mongo-entity';
 import { SupporterService } from './supporter.service';
 import { CreateSupporterDTO } from './dto/create-supporter-dto';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
+import { CreateSupporterSwagger } from 'src/shared/swagger/decorators/supporter/createSupporter.swagger';
+import { GetSupporterSwagger } from 'src/shared/swagger/decorators/supporter/getSupporter.swagger';
+import { PageOptionsDto } from 'src/shared/pagination/page-options.dto';
+import PageDto from 'src/shared/pagination/page.dto';
 
 @ApiTags('Supporter')
 @Controller('supporter')
 export class SupporterController {
   constructor(private readonly supporterService: SupporterService) {}
 
-  @ApiOperation({
-    summary: 'Registra o apoiador no banco de dados',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Sucesso',
-    type: CreateSupporterDTO,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Erro',
-    type: BadRequestException,
-  })
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'Chave secreta para autenticação',
-  })
+  @CreateSupporterSwagger()
   @UseGuards(SecretKeyGuard)
   @Post()
   async create(
@@ -44,41 +24,18 @@ export class SupporterController {
     return supporter;
   }
 
-  @ApiOperation({
-    summary: 'Resgata registro do apoiador no banco.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Sucesso',
-    type: CreateSupporterDTO,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Erro',
-    type: BadRequestException,
-  })
-  @Get(':email')
-  async getByEmail(@Param('email') email: string): Promise<SupporterEntity> {
-    const supporter = await this.supporterService.findSupporterByEmail(email);
-    return supporter;
-  }
-
-  @ApiOperation({
-    summary: 'Resgata todos os apoiadores do banco.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Sucesso',
-    type: [CreateSupporterDTO],
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Erro',
-    type: BadRequestException,
-  })
+  @GetSupporterSwagger()
   @Get()
-  async getAll(): Promise<SupporterEntity[]> {
-    const supporters = await this.supporterService.findAll();
+  async getAll(
+    @Query() pageOptionsDto: PageOptionsDto,
+    @Query('email') email?: string,
+  ): Promise<PageDto<SupporterEntity> | SupporterEntity> {
+    if (email) {
+      const supporter = await this.supporterService.findSupporterByEmail(email);
+      return supporter;
+    }
+
+    const supporters = await this.supporterService.findAll(pageOptionsDto);
     return supporters;
   }
 }

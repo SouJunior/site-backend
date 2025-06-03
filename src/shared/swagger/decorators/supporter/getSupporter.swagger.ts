@@ -4,14 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { PaginatedJuniorResponseDTO } from 'src/modules/juniors/dtos/paginated-junior.dto';
+import { PaginatedSupporterResponseDTO } from 'src/modules/supporter/dto/paginated-supporter.dto';
 import { Order } from 'src/shared/enum/pagination-order';
 
-export function GetJuniorsSwagger() {
+export function GetSupporterSwagger() {
   return applyDecorators(
     ApiOperation({
       summary:
-        'Resgata um junior do banco por email ou todos, se nenhum email for fornecido',
+        'Resgata um apoiador do banco por email ou todos, se nenhum email for fornecido',
     }),
     ApiQuery({
       name: 'page',
@@ -39,23 +39,23 @@ export function GetJuniorsSwagger() {
 
     ApiQuery({
       name: 'email',
-      description: 'Email do júnior (opcional)',
+      description: 'Email do apoiador (opcional)',
       required: false,
       type: String,
     }),
     ApiResponse({
       status: 200,
       description: 'Sucesso',
-      type: PaginatedJuniorResponseDTO,
+      type: PaginatedSupporterResponseDTO,
     }),
     ApiResponse({
       status: 400,
-      description: 'Erro ao requisitar o júnior',
+      description: 'Erro ao requisitar o apoiador',
       type: BadRequestException,
     }),
     ApiResponse({
       status: 404,
-      description: 'Júnior não encontrado',
+      description: 'Apoiador não encontrado',
       type: NotFoundException,
     }),
   );

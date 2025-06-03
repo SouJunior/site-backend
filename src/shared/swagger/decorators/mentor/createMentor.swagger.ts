@@ -1,16 +1,16 @@
 import { applyDecorators, BadRequestException } from '@nestjs/common';
-import { ApiHeader, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { JuniorResponseDTO } from 'src/modules/juniors/dtos/junior-response.dto';
+import { ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger';
+import { MentorResponseDTO } from 'src/modules/mentor/dto/mentor-response.dto';
 
-export function CreateJuniorSwagger() {
+export function CreateMentorSwagger() {
   return applyDecorators(
     ApiOperation({
-      summary: 'Registra o Junior no Banco de Dados',
+      summary: 'Registra o Mentor no Banco de Dados',
     }),
     ApiResponse({
       status: 200,
       description: 'Sucesso',
-      type: JuniorResponseDTO,
+      type: MentorResponseDTO,
     }),
     ApiResponse({
       status: 400,
