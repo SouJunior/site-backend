@@ -1,40 +1,20 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Get,
-  Param,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiHeader, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { HeadEntity } from 'src/database/entities/head.mongo-entity';
 import { HeadService } from './head.service';
 import { CreateHeadDTO } from './dto/create-head-dto';
 import { SecretKeyGuard } from 'src/shared/guards/secret-key.guard';
+import { CreateHeadSwagger } from 'src/shared/swagger/decorators/head/createHead.swagger';
+import { GetHeadSwagger } from 'src/shared/swagger/decorators/head/getHead.swagger';
+import { PageOptionsDto } from 'src/shared/pagination/page-options.dto';
+import PageDto from 'src/shared/pagination/page.dto';
 
 @ApiTags('Head')
 @Controller('head')
 export class HeadController {
   constructor(private readonly headService: HeadService) {}
 
-  @ApiOperation({
-    summary: 'Registra o head no banco de dados',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Sucesso',
-    type: CreateHeadDTO,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Erro',
-    type: BadRequestException,
-  })
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'Chave secreta para autenticação',
-  })
+  @CreateHeadSwagger()
   @UseGuards(SecretKeyGuard)
   @Post()
   async create(@Body() createHeadDto: CreateHeadDTO): Promise<HeadEntity> {
@@ -42,41 +22,18 @@ export class HeadController {
     return head;
   }
 
-  @ApiOperation({
-    summary: 'Resgata informações do head no banco.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Sucesso',
-    type: CreateHeadDTO,
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Erro',
-    type: BadRequestException,
-  })
-  @Get(':email')
-  async getByEmail(@Param('email') email: string): Promise<HeadEntity> {
-    const head = await this.headService.findHeadByEmail(email);
-    return head;
-  }
-
-  @ApiOperation({
-    summary: 'Resgata todos os heads do banco.',
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Sucesso',
-    type: [CreateHeadDTO],
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Erro',
-    type: BadRequestException,
-  })
+  @GetHeadSwagger()
   @Get()
-  async getAll(): Promise<HeadEntity[]> {
-    const heads = await this.headService.findAll();
+  async getAll(
+    @Query() pageOptionsDto: PageOptionsDto,
+    @Query('email') email?: string,
+  ): Promise<PageDto<HeadEntity> | HeadEntity> {
+    if (email) {
+      const head = await this.headService.findHeadByEmail(email);
+      return head;
+    }
+
+    const heads = await this.headService.findAll(pageOptionsDto);
     return heads;
   }
 }
