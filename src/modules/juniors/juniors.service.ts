@@ -96,12 +96,15 @@ export class JuniorsService {
     juniors.forEach((junior) => {
       csvData.push(
         new JuniorDataCsvDto(
-          junior["id"],
-          junior["name"],
-          junior["email"],
-          junior["linkedin"],
-          parsedAreas[junior["area"]],
-          parsedSubareas[junior["subarea"]]
+          junior.id,
+          junior.name,
+          junior.email,
+          junior.linkedin,
+          junior.otherExperiences,
+          junior.toolsKnowledge,
+          junior.fieldKnowledge,
+          parsedAreas[junior.area],
+          parsedSubareas[junior.subarea]
         )
       )
     })
@@ -144,23 +147,23 @@ export class JuniorsService {
     return where;
   }
 
-  private async parseAreas() : Promise<Record<number, string>>{
+  private async parseAreas() : Promise<Record<string, string>>{
     const areas = await this.areaRepository.find();
-    const parsedAreas: Record<number, string> = {};
+    const parsedAreas: Record<string, string> = {};
 
     areas.forEach((area) =>{
-      parsedAreas[area["id"]] = area["name"];
+      parsedAreas[area.id.toString()] = area.name;
     });
     
     return parsedAreas;
   }
 
-  private async parseSubareas() : Promise<Record<number, string>>{
+  private async parseSubareas() : Promise<Record<string, string>>{
     const subareas = await this.subareaRepository.find();
-    const parsedSubareas: Record<number, string> = {};
+    const parsedSubareas: Record<string, string> = {};
 
     subareas.forEach((subarea) =>{
-      parsedSubareas[subarea["id"]] = subarea["name"];
+      parsedSubareas[subarea.id.toString()] = subarea.name;
     });
     
     return parsedSubareas;

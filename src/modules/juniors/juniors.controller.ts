@@ -63,7 +63,7 @@ export class JuniorsController {
       throw new NotFoundException('Nenhum junior encontrado.');
     }
 
-    const fields = ['name', 'email', 'area', 'subarea', 'linkedin'];
+    const fields = ['name', 'email', 'area', 'subarea', 'linkedin', 'otherExperiences', 'toolsKnowledge', 'fieldKnowledge'];
     const opts = { fields };
     const parser = new AsyncParser(opts);
     const csv = await parser.parse(juniors).promise();
