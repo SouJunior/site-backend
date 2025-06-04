@@ -1,31 +1,34 @@
-import { Column, ObjectId, ObjectIdColumn } from "typeorm";
+import { ObjectId } from "typeorm";
 
 export class JuniorDataCsvDto{
-      @ObjectIdColumn()
       id: ObjectId;
     
-      @Column()
       name: string;
     
-      @Column()
       email: string;
     
-      @Column()
       linkedin: string;
     
-      @Column()
       area: string;
     
-      @Column()
       subarea ?: string;
 
+      toolsKnowledge: string;
 
-      constructor(id:ObjectId, name: string, email: string, linkendin: string, area: string, subarea: string){
+      otherExperiences: string;
+
+      fieldKnowledge: string;
+
+
+      constructor(id:ObjectId, name: string, email: string, linkedin: string,otherExperiences: string, toolsKnowledge: string, fieldKnowledge: string, area: string, subarea: string){
             this.id = id;
             this.name = name;
             this.email = email;
-            this.linkedin = linkendin;
+            this.linkedin = linkedin;
             this.area = area;
             this.subarea = subarea;
+            this.toolsKnowledge = toolsKnowledge;
+            this.otherExperiences = otherExperiences;
+            this.fieldKnowledge = fieldKnowledge;
       }
 }
