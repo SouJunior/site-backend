@@ -100,6 +100,9 @@ export class JuniorsService {
           junior.name,
           junior.email,
           junior.linkedin,
+          junior.otherExperiences,
+          junior.toolsKnowledge,
+          junior.fieldKnowledge,
           parsedAreas[junior.area],
           parsedSubareas[junior.subarea]
         )
