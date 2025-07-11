@@ -86,7 +86,7 @@ export class MentorService {
     return new PageDto(data, meta);
   }
 
-  async findAllToCsv(filters?: string[]): Promise<MentorDataCsvDto[]> {
+  async findAllToCsv(filters?: Record<string, any>): Promise<MentorDataCsvDto[]> {
     const parsedFilter = this.parseFilter(filters);
     const mentors = await this.mentorEntityRepo.find(parsedFilter);
     const parsedAreas = await this.parseAreas();
