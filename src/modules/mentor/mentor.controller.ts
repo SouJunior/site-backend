@@ -44,7 +44,7 @@ export class MentorController {
   @ExportMentorCsvSwagger()
   @Get('csv')
   async exportMentorAsCsv(
-    @Query() query: any
+    @Query() query: Record<string, any>
   ): Promise<StreamableFile> {
     const mentors = await this.mentorService.findAllToCsv(query);
 
@@ -59,7 +59,7 @@ export class MentorController {
 
     return new StreamableFile(readableStream, {
       disposition: 'attachment; filename="mentors.csv"',
-      type: 'text,csv'
+      type: 'text/csv'
     })
   }
 }
