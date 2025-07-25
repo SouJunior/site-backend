@@ -27,7 +27,7 @@ export class JuniorsService {
 
     @InjectRepository(Subarea, 'mongoConnection')
     private readonly subareaRepository: MongoRepository<Subarea>
-  ) {}
+  ) { }
 
   async create(createJuniorDto: CreateJuniorDto): Promise<JuniorMDBEntity> {
     const juniorExists = await this.findJuniorByEmail(
@@ -104,7 +104,9 @@ export class JuniorsService {
           junior.toolsKnowledge,
           junior.fieldKnowledge,
           parsedAreas[junior.area],
-          parsedSubareas[junior.subarea]
+          parsedSubareas[junior.subarea],
+          junior.startDate,
+          junior.createdAt
         )
       )
     })
@@ -147,25 +149,25 @@ export class JuniorsService {
     return where;
   }
 
-  private async parseAreas() : Promise<Record<string, string>>{
+  private async parseAreas(): Promise<Record<string, string>> {
     const areas = await this.areaRepository.find();
     const parsedAreas: Record<string, string> = {};
 
-    areas.forEach((area) =>{
+    areas.forEach((area) => {
       parsedAreas[area.id.toString()] = area.name;
     });
-    
+
     return parsedAreas;
   }
 
-  private async parseSubareas() : Promise<Record<string, string>>{
+  private async parseSubareas(): Promise<Record<string, string>> {
     const subareas = await this.subareaRepository.find();
     const parsedSubareas: Record<string, string> = {};
 
-    subareas.forEach((subarea) =>{
+    subareas.forEach((subarea) => {
       parsedSubareas[subarea.id.toString()] = subarea.name;
     });
-    
+
     return parsedSubareas;
   }
 }

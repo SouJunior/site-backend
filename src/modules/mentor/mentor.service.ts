@@ -104,7 +104,9 @@ export class MentorService {
           mentor.jobExperience,
           mentor.volunteerMotivation,
           parsedAreas[mentor.area],
-          parsedSubareas[mentor.subarea]
+          parsedSubareas[mentor.subarea],
+          mentor.startDate,
+          mentor.createdAt
         )
       )
     })

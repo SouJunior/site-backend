@@ -25,7 +25,7 @@ import PageDto from 'src/shared/pagination/page.dto';
 @ApiTags('Junior')
 @Controller('juniors')
 export class JuniorsController {
-  constructor(private readonly juniorsService: JuniorsService) {}
+  constructor(private readonly juniorsService: JuniorsService) { }
 
   @Post()
   @UseGuards(SecretKeyGuard)
@@ -63,7 +63,7 @@ export class JuniorsController {
       throw new NotFoundException('Nenhum junior encontrado.');
     }
 
-    const fields = ['name', 'email', 'area', 'subarea', 'linkedin', 'otherExperiences', 'toolsKnowledge', 'fieldKnowledge'];
+    const fields = ['name', 'email', 'area', 'subarea', 'linkedin', 'otherExperiences', 'toolsKnowledge', 'fieldKnowledge', 'startDate', 'createdAt'];
     const opts = { fields };
     const parser = new AsyncParser(opts);
     const csv = await parser.parse(juniors).promise();
