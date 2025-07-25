@@ -1,17 +1,17 @@
 import { ObjectId } from "typeorm";
 
-export class JuniorDataCsvDto{
+export class JuniorDataCsvDto {
       id: ObjectId;
-    
+
       name: string;
-    
+
       email: string;
-    
+
       linkedin: string;
-    
+
       area: string;
-    
-      subarea ?: string;
+
+      subarea?: string;
 
       toolsKnowledge: string;
 
@@ -19,8 +19,12 @@ export class JuniorDataCsvDto{
 
       fieldKnowledge: string;
 
+      startDate: Date;
 
-      constructor(id:ObjectId, name: string, email: string, linkedin: string,otherExperiences: string, toolsKnowledge: string, fieldKnowledge: string, area: string, subarea: string){
+      createdAt: Date;
+
+
+      constructor(id: ObjectId, name: string, email: string, linkedin: string, otherExperiences: string, toolsKnowledge: string, fieldKnowledge: string, area: string, subarea: string, startDate: Date, createdAt: Date) {
             this.id = id;
             this.name = name;
             this.email = email;
@@ -30,5 +34,7 @@ export class JuniorDataCsvDto{
             this.toolsKnowledge = toolsKnowledge;
             this.otherExperiences = otherExperiences;
             this.fieldKnowledge = fieldKnowledge;
+            this.startDate = startDate;
+            this.createdAt = createdAt;
       }
 }

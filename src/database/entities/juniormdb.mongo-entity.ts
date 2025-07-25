@@ -1,4 +1,4 @@
-import { Entity, ObjectIdColumn, ObjectId, Column } from 'typeorm';
+import { Entity, ObjectIdColumn, ObjectId, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('JuniorsMDB')
 export class JuniorMDBEntity {
@@ -55,4 +55,10 @@ export class JuniorMDBEntity {
 
   @Column()
   startDate: Date;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

@@ -17,7 +17,12 @@ export class MentorDataCsvDto {
 
     volunteerMotivation: string;
 
-    constructor(id: ObjectId, name: string, email: string, linkedin: string, jobExperience: string, volunteerMotivation: string, area: string, subarea: string) {
+    startDate: Date;
+
+    createdAt: Date;
+
+
+    constructor(id: ObjectId, name: string, email: string, linkedin: string, jobExperience: string, volunteerMotivation: string, area: string, subarea: string, startDate: Date, createdAt: Date) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -26,6 +31,8 @@ export class MentorDataCsvDto {
         this.subarea = subarea;
         this.jobExperience = jobExperience;
         this.volunteerMotivation = volunteerMotivation;
+        this.startDate = startDate;
+        this.createdAt = createdAt;
     }
 
 }
