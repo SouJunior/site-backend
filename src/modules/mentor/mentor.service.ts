@@ -106,7 +106,9 @@ export class MentorService {
           parsedAreas[mentor.area],
           parsedSubareas[mentor.subarea],
           mentor.startDate,
-          mentor.createdAt
+          mentor.createdAt,
+          mentor.phone,
+          mentor.hasWhatsApp,
         )
       )
     })
@@ -142,6 +144,7 @@ export class MentorService {
     const simpleFields = [
       'name',
       'email',
+      'phone',
       'linkedin',
       'availability',
       'startOption',
@@ -152,6 +155,7 @@ export class MentorService {
 
     const booleanFields = [
       'turn',
+      'hasWhatsApp'
     ];
 
     const intFields = ['area', 'subarea'];

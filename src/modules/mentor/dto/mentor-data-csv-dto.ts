@@ -7,6 +7,10 @@ export class MentorDataCsvDto {
 
     email: string;
 
+    phone: string;
+
+    hasWhatsApp: boolean;
+
     linkedin: string;
 
     area: string;
@@ -22,7 +26,7 @@ export class MentorDataCsvDto {
     createdAt: Date;
 
 
-    constructor(id: ObjectId, name: string, email: string, linkedin: string, jobExperience: string, volunteerMotivation: string, area: string, subarea: string, startDate: Date, createdAt: Date) {
+    constructor(id: ObjectId, name: string, email: string, linkedin: string, jobExperience: string, volunteerMotivation: string, area: string, subarea: string, startDate: Date, createdAt: Date, phone: string, hasWhatsApp: boolean) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -33,6 +37,8 @@ export class MentorDataCsvDto {
         this.volunteerMotivation = volunteerMotivation;
         this.startDate = startDate;
         this.createdAt = createdAt;
+        this.phone = phone;
+        this.hasWhatsApp = hasWhatsApp;
     }
 
 }

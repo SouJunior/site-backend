@@ -19,6 +19,15 @@ export class CreateMentorDTO{
     @IsNotEmpty()
     linkedin: string;
 
+    @ApiProperty({ description: 'Telefone do mentor', example: '(79) 999999998' })
+    @IsString()
+    @IsNotEmpty()
+    phone: string;
+
+    @ApiProperty({ description: 'Este número possui WhatsApp?', example: true })
+    @IsBoolean()
+    hasWhatsApp: boolean;
+
     @ApiProperty({description:'Foi indicado por alguém da SJ', example: true})
     @IsBoolean()
     indication: boolean;
