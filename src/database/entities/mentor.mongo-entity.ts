@@ -15,7 +15,7 @@ export class MentorEntity {
     phone: string;
 
     @Column()
-    hasWhatsapp: boolean;
+    hasWhatsApp: boolean;
 
     @Column({ length: 255 })
     linkedin: string;
