@@ -11,6 +11,12 @@ export class JuniorMDBEntity {
   @Column()
   email: string;
 
+  @Column({ length: 20 })
+  phone: string;
+
+  @Column()
+  hasWhatsApp: boolean;
+
   @Column()
   linkedin: string;
 
@@ -40,9 +46,6 @@ export class JuniorMDBEntity {
 
   @Column()
   toolsKnowledge: string;
-
-  @Column({ length: 20 })
-  phone: string;
 
   @Column()
   fieldKnowledge: string;

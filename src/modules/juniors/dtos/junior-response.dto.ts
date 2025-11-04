@@ -12,6 +12,12 @@ export class JuniorResponseDTO {
   email: string;
 
   @ApiProperty()
+  phone: string;
+
+  @ApiProperty()
+  hasWhatsApp: boolean;
+
+  @ApiProperty()
   linkedin: string;
 
   @ApiProperty()
@@ -37,9 +43,6 @@ export class JuniorResponseDTO {
 
   @ApiProperty()
   startOption: string;
-
-  @ApiProperty()
-  phone: string;
 
   @ApiProperty()
   toolsKnowledge: string;

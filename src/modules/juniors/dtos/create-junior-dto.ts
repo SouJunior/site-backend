@@ -24,20 +24,24 @@ export class CreateJuniorDto {
   email: string;
 
   @ApiProperty({
-    description: 'Perfil do LinkedIn do candidato',
-    example: 'https://www.linkedin.com/in/joao-silva/',
-  })
-  @IsString()
-  @IsNotEmpty()
-  linkedin: string;
-
-  @ApiProperty({
     description: 'Telefone do candidato',
     example: '(31) 91234-5678',
   })
   @IsString()
   @IsNotEmpty()
   phone: string;
+
+  @ApiProperty({ description: 'Este número possui WhatsApp?', example: true })
+  @IsBoolean()
+  hasWhatsApp: boolean;
+
+  @ApiProperty({
+    description: 'Perfil do LinkedIn do candidato',
+    example: 'https://www.linkedin.com/in/joao-silva/',
+  })
+  @IsString()
+  @IsNotEmpty()
+  linkedin: string;
 
   @ApiProperty({ description: 'ID da área de interesse', example: 1 })
   @IsInt()
