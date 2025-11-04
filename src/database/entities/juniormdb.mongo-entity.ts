@@ -41,6 +41,9 @@ export class JuniorMDBEntity {
   @Column()
   toolsKnowledge: string;
 
+  @Column({ length: 20 })
+  phone: string;
+
   @Column()
   fieldKnowledge: string;
 

@@ -39,6 +39,9 @@ export class JuniorResponseDTO {
   startOption: string;
 
   @ApiProperty()
+  phone: string;
+
+  @ApiProperty()
   toolsKnowledge: string;
 
   @ApiProperty()
