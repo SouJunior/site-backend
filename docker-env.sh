@@ -11,12 +11,19 @@ show_menu() {
 
 run_dev() {
   echo "Iniciando o container em modo dev..."
-  docker-compose -f docker-compose.yml up app-dev --build --watch
+  docker-compose down
+  docker-compose up -d app-dev --build
+  echo ""
+  echo "Backend: http://localhost:4000"
+  echo "Frontend: http://localhost:3000"
+  echo "Logs: docker logs -f site-backend-dev"
 }
 
 run_prod() {
   echo "Iniciando o container em modo prod..."
-  docker-compose -f docker-compose.yml up app --build
+  docker-compose down
+  docker-compose up -d app --build
+  echo "API em produção: http://localhost:4000"
 }
 
 while true; do
