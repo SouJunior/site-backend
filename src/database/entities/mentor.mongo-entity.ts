@@ -12,6 +12,12 @@ export class MentorEntity {
     email: string;
 
     @Column({ length: 255 })
+    phone: string;
+
+    @Column()
+    hasWhatsApp: boolean;
+
+    @Column({ length: 255 })
     linkedin: string;
 
     @Column({})

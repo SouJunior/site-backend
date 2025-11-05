@@ -48,7 +48,7 @@ export class MentorController {
   ): Promise<StreamableFile> {
     const mentors = await this.mentorService.findAllToCsv(query);
 
-    const fields = ['name', 'email', 'linkedin', 'area', 'subarea', 'jobExperience', 'volunteerMotivation', 'startDate', 'createdAt'];
+    const fields = ['name', 'email', 'linkedin', 'area', 'subarea', 'jobExperience', 'volunteerMotivation', 'startDate', 'createdAt', 'phone', 'hasWhatsApp'];
     const opts = { fields };
     const parser = new AsyncParser(opts);
     const csv = await parser.parse(mentors).promise();
