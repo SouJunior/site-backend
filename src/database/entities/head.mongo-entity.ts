@@ -11,6 +11,12 @@ export class HeadEntity{
     @Column({ length: 255})
     email: string;
 
+    @Column({ length: 255 })
+    phone: string;
+
+    @Column()
+    hasWhatsApp: boolean;
+
     @Column({length: 255})
     linkedin: string;
 
@@ -57,7 +63,7 @@ export class HeadEntity{
     contactAgreement: boolean;
 
     @Column()
-    volunteeringAgreement: boolean;
+    volunteerAgreement: boolean;
 
     @Column()
     termsAgreement: boolean;
