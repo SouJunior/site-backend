@@ -14,6 +14,15 @@ export class CreateHeadDTO{
     @IsNotEmpty()
     email: string;
 
+    @ApiProperty({ description: 'Telefone do mentor', example: '(79) 999999998' })
+    @IsString()
+    @IsNotEmpty()
+    phone: string;
+
+    @ApiProperty({ description: 'Este número possui WhatsApp?', example: true })
+    @IsBoolean()
+    hasWhatsApp: boolean;
+
     @ApiProperty({description: 'LinkedIn do Head', example: 'https://www.linkedin.com/in/jjoestar/'})
     @IsString()
     @IsNotEmpty()
